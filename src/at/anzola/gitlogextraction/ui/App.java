@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.ui;
 
+import at.anzola.gitlogextraction.response.Log;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class App extends Application {
+
+    public static Log log;
 
     public static Stage stage;
 
