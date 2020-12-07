@@ -1,12 +1,16 @@
 package at.anzola.gitlogextraction.ui;
 
+import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -33,9 +37,31 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("applayout.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("applayout.fxml"));
+        loader.setController(new App());
+        Parent root = loader.load();
+
         stage.setTitle("Git Log Extraction App");
         stage.setScene(new Scene(root, 800, 500));
         stage.show();
+    }
+
+    /**
+     * Called when the MenuItem 'open' is pressed
+     *
+     * @throws IOException If something goes wrong
+     */
+    @FXML
+    public void open() throws IOException {
+        final FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            loadNew(file);
+        }
+    }
+
+    public static void loadNew(File file) throws IOException {
+        log = LogReader.read(file.getPath());
     }
 }
