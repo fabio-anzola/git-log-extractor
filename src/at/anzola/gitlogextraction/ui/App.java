@@ -7,6 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -38,12 +42,36 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applayout.fxml"));
-        loader.setController(new App());
-        Parent root = loader.load();
+        //Build UI
+        VBox vBox = new VBox();
+        MenuBar menuBar = new MenuBar();
 
+        Menu fileMenu = new Menu("File");
+        MenuItem openItem = new MenuItem("Open...");
+        Menu recentMenu = new Menu("Open Recent");
+        MenuItem prefItem = new MenuItem("Preferences...");
+        MenuItem quitItem = new MenuItem("Quit");
+
+        Menu helpMenu = new Menu("Help");
+        MenuItem aboutItem = new MenuItem("About Git Log Extraction");
+
+        fileMenu.getItems().addAll(
+                openItem,
+                recentMenu,
+                prefItem,
+                quitItem);
+        helpMenu.getItems().addAll(
+                aboutItem
+        );
+        menuBar.getMenus().addAll(
+                fileMenu,
+                helpMenu
+        );
+        vBox.getChildren().add(menuBar);
+
+        //Show UI
         stage.setTitle("Git Log Extraction App");
-        stage.setScene(new Scene(root, 800, 500));
+        stage.setScene(new Scene(vBox, 800, 500));
         stage.show();
     }
 
