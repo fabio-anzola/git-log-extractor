@@ -3,9 +3,8 @@ package at.anzola.gitlogextraction.ui;
 import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -34,6 +33,11 @@ public class App extends Application {
      */
     public static Stage stage;
 
+    /**
+     * Recents menu
+     */
+    public static Menu recent;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -49,11 +53,27 @@ public class App extends Application {
         Menu fileMenu = new Menu("File");
         MenuItem openItem = new MenuItem("Open...");
         Menu recentMenu = new Menu("Open Recent");
+        recent = recentMenu;
         MenuItem prefItem = new MenuItem("Preferences...");
         MenuItem quitItem = new MenuItem("Quit");
 
         Menu helpMenu = new Menu("Help");
         MenuItem aboutItem = new MenuItem("About Git Log Extraction");
+
+        quitItem.setOnAction(actionEvent -> {
+            Platform.exit();
+            System.exit(0);
+        });
+        openItem.setOnAction(actionEvent -> {
+            try {
+                open();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        aboutItem.setOnAction(actionEvent -> {
+            getHostServices().showDocument("https://github.com/fabio-anzola/git-log-extractor");
+        });
 
         fileMenu.getItems().addAll(
                 openItem,
@@ -86,6 +106,15 @@ public class App extends Application {
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             loadNew(file);
+            MenuItem menuItem = new MenuItem(file.getName());
+            menuItem.setOnAction(actionEvent -> {
+                try {
+                    loadNew(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            recent.getItems().add(menuItem);
         }
     }
 
