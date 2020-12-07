@@ -7,8 +7,18 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The AppController class
+ *
+ * @author fabioanzola
+ */
 public class AppController {
 
+    /**
+     * Called when the MenuItem 'open' is pressed
+     *
+     * @throws IOException If something goes wrong
+     */
     @FXML
     public void open() throws IOException {
         final FileChooser fileChooser = new FileChooser();

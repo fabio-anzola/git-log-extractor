@@ -9,10 +9,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The App class
+ *
+ * @author fabioanzola
+ */
 public class App extends Application {
 
+    /**
+     * Contains the current log
+     */
     public static Log log;
 
+    /**
+     * The stage
+     */
     public static Stage stage;
 
     public static void main(String[] args) {
