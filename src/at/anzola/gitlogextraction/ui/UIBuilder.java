@@ -5,10 +5,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -43,6 +40,9 @@ public class UIBuilder {
         MenuItem prefItem = new MenuItem("Preferences...");
         MenuItem quitItem = new MenuItem("Quit");
 
+        Menu viewMenu = new Menu("View");
+        RadioMenuItem anonymizeItemToggle = new RadioMenuItem("Anonymize");
+
         Menu helpMenu = new Menu("Help");
         MenuItem aboutItem = new MenuItem("About Git Log Extraction");
 
@@ -57,6 +57,11 @@ public class UIBuilder {
                 e.printStackTrace();
             }
         });
+        anonymizeItemToggle.setOnAction(actionEvent -> {
+            //TODO Show pane "only once action"
+            anonymizeItemToggle.setDisable(true);
+            //TODO anonymize!
+        });
         aboutItem.setOnAction(actionEvent -> {
             (new App()).getHostServices().showDocument("https://github.com/fabio-anzola/git-log-extractor");
         });
@@ -66,11 +71,15 @@ public class UIBuilder {
                 recentMenu,
                 prefItem,
                 quitItem);
+        viewMenu.getItems().addAll(
+                anonymizeItemToggle
+        );
         helpMenu.getItems().addAll(
                 aboutItem
         );
         menuBar.getMenus().addAll(
                 fileMenu,
+                viewMenu,
                 helpMenu
         );
 

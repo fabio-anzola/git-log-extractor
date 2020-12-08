@@ -73,6 +73,7 @@ public class App extends Application {
                 try {
                     loadNew(file);
                 } catch (IOException e) {
+                    //TODO Show error pop-up
                     e.printStackTrace();
                 }
             });
