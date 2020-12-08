@@ -1,12 +1,19 @@
 package at.anzola.gitlogextraction.ui;
 
+import at.anzola.gitlogextraction.response.Commit;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.ZoneId;
+import java.util.ArrayList;
 
 /**
  * The App class
@@ -21,16 +28,11 @@ public class UIBuilder {
     public static Menu recent;
 
     /**
-     * Recents menu
-     */
-    public static VBox vbox;
-
-    /**
      * Creates the basic ui
      *
      * @return vBox
      */
-    public static VBox basicUI() {
+    public static void basicUI() {
         VBox vBox = new VBox();
         MenuBar menuBar = new MenuBar();
 
@@ -71,10 +73,31 @@ public class UIBuilder {
                 fileMenu,
                 helpMenu
         );
-        vBox.getChildren().add(menuBar);
 
-        vbox = vBox;
-        return vbox;
+        ListView<String> list = new ListView<>();
+        ObservableList<String> items = FXCollections.observableArrayList("No Commits to view...");
+        list.setItems(items);
+        list.setOrientation(Orientation.VERTICAL);
+        App.listv = list;
+
+        vBox.getChildren().add(menuBar);
+        App.vbox = vBox;
     }
 
+    /**
+     * Shows list of commits on screen
+     *
+     * @throws IOException If something goes wrong
+     */
+    public static void showCommits() throws IOException {
+        ArrayList<String> commits = new ArrayList<>();
+        for (Commit commit : App.log.gitLog) {
+            commits.add(String.format("Hash: %s \nAuthor: %s \nDate: %s \nMessage: %s",
+                    commit.hash, commit.author, commit.authorDate.atZone(ZoneId.systemDefault()), commit.message));
+        }
+        ObservableList<String> items = FXCollections.observableList(commits);
+        App.listv.getItems().clear();
+        App.listv.setItems(items);
+        App.listv.refresh();
+    }
 }

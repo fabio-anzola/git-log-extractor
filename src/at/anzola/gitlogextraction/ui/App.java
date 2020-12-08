@@ -4,6 +4,7 @@ import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -29,6 +30,16 @@ public class App extends Application {
      */
     public static Stage stage;
 
+    /**
+     * Recents menu
+     */
+    public static VBox vbox;
+
+    /**
+     * Recents menu
+     */
+    public static ListView<String> listv;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -38,11 +49,12 @@ public class App extends Application {
         stage = primaryStage;
 
         //Build UI
-        VBox vBox = UIBuilder.basicUI();
+        UIBuilder.basicUI();
+        vbox.getChildren().add(listv);
 
         //Show UI
         stage.setTitle("Git Log Extraction App");
-        stage.setScene(new Scene(vBox, 800, 500));
+        stage.setScene(new Scene(vbox, 800, 500));
         stage.show();
     }
 
@@ -68,7 +80,14 @@ public class App extends Application {
         }
     }
 
-    public static void loadNew(File file) throws IOException {
+    /**
+     * Loads new log
+     *
+     * @param file The log file
+     * @throws IOException If something goes wrong
+     */
+    public void loadNew(File file) throws IOException {
         log = LogReader.read(file.getPath());
+        UIBuilder.showCommits();
     }
 }
