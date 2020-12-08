@@ -3,11 +3,16 @@ package at.anzola.gitlogextraction.ui;
 import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -73,7 +78,18 @@ public class App extends Application {
                 try {
                     loadNew(file);
                 } catch (IOException e) {
-                    //TODO Show error pop-up
+                    final Stage dialog = new Stage();
+                    dialog.initModality(Modality.APPLICATION_MODAL);
+                    dialog.initOwner(stage);
+                    Text errorDisplay = new Text("Sorry, something went wrong. \n Please reopen the file manually or issue a bug.");
+                    Button exit = new Button("Ok");
+                    errorDisplay.setTextAlignment(TextAlignment.CENTER);
+                    VBox screen = new VBox(errorDisplay, exit);
+                    screen.setAlignment(Pos.CENTER);
+                    Scene dialogScene = new Scene(screen, 250, 100);
+                    dialog.setScene(dialogScene);
+                    dialog.show();
+                    exit.setOnAction(exitEvent -> dialog.close());
                     e.printStackTrace();
                 }
             });
