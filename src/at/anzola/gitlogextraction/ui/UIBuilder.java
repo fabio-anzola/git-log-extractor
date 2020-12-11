@@ -1,7 +1,6 @@
 package at.anzola.gitlogextraction.ui;
 
 import at.anzola.gitlogextraction.response.Commit;
-import at.anzola.gitlogextraction.utlis.Saver;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -41,6 +43,18 @@ public class App extends Application {
     public static ListView<String> listv;
 
     public static void main(String[] args) {
+        if (Taskbar.isTaskbarSupported()) {
+            if (Taskbar.getTaskbar().isSupported(Taskbar.Feature.ICON_IMAGE)) {
+                try {
+                    File file = new File("resources/icon.png");
+                    Image image = ImageIO.read(file);
+                    Taskbar.getTaskbar().setIconImage(image);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
         launch(args);
     }
 
@@ -52,6 +66,9 @@ public class App extends Application {
         UIBuilder.basicUI();
         UIBuilder.anonymizeItemToggle.setDisable(true);
         vbox.getChildren().add(listv);
+
+        //App Icon
+        stage.getIcons().add(new javafx.scene.image.Image("file:resources/icon.png"));
 
         //Show UI
         stage.setTitle("Git Log Extraction App");
