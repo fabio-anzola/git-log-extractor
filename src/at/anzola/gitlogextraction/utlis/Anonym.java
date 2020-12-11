@@ -2,7 +2,6 @@ package at.anzola.gitlogextraction.utlis;
 
 import at.anzola.gitlogextraction.response.Commit;
 import at.anzola.gitlogextraction.response.Log;
-import at.anzola.gitlogextraction.ui.App;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,8 +16,17 @@ import java.util.Map;
  */
 public class Anonym {
 
+    /**
+     * A Map of users. Exists for whole application time
+     */
     public static Map<String, String> users = new HashMap<>();
 
+    /**
+     * Anonymizes a given Log (Via SHA-256 hash)
+     *
+     * @param log The log to be edited
+     * @return The anonym log
+     */
     public static Log anonymize(Log log) {
         for (Commit commit : log.gitLog) {
             MessageDigest messageDigest = null;
