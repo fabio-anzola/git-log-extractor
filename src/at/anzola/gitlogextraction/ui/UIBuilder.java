@@ -1,20 +1,12 @@
 package at.anzola.gitlogextraction.ui;
 
 import at.anzola.gitlogextraction.response.Commit;
-import at.anzola.gitlogextraction.utlis.Anonym;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.ZoneId;
@@ -32,10 +24,10 @@ public class UIBuilder {
      */
     public static Menu recent;
 
+    public static RadioMenuItem anonymizeItemToggle;
+
     /**
      * Creates the basic ui
-     *
-     * @return vBox
      */
     public static void basicUI() {
         VBox vBox = new VBox();
@@ -44,12 +36,14 @@ public class UIBuilder {
         Menu fileMenu = new Menu("File");
         MenuItem openItem = new MenuItem("Open...");
         Menu recentMenu = new Menu("Open Recent");
+        MenuItem saveItem = new MenuItem("Save");
+        MenuItem saveAsItem = new MenuItem("Save as");
         recent = recentMenu;
         MenuItem prefItem = new MenuItem("Preferences...");
         MenuItem quitItem = new MenuItem("Quit");
 
         Menu viewMenu = new Menu("View");
-        RadioMenuItem anonymizeItemToggle = new RadioMenuItem("Anonymize");
+        anonymizeItemToggle = new RadioMenuItem("Anonymize");
 
         Menu helpMenu = new Menu("Help");
         MenuItem aboutItem = new MenuItem("About Git Log Extraction");
@@ -66,33 +60,7 @@ public class UIBuilder {
             }
         });
         anonymizeItemToggle.setOnAction(actionEvent -> {
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(App.stage);
-            Text errorDisplay = new Text("Attention!\nThis is a one way action.\nAfter anonymizing there is no way\nto recover the data.");
-            Button exit = new Button("Cancel");
-            Button ok = new Button("Ok");
-            HBox hBox = new HBox(exit, ok);
-            hBox.setAlignment(Pos.CENTER);
-            hBox.setSpacing(10);
-            errorDisplay.setTextAlignment(TextAlignment.CENTER);
-            VBox screen = new VBox(errorDisplay, hBox);
-            screen.setAlignment(Pos.CENTER);
-            Scene dialogScene = new Scene(screen, 250, 100);
-            dialog.setScene(dialogScene);
-            dialog.show();
-            exit.setCancelButton(true);
-            exit.setDefaultButton(true);
-            exit.setOnAction(exitEvent -> {
-                anonymizeItemToggle.setSelected(false);
-                dialog.close();
-            });
-            ok.setOnAction(actionEvent1 -> {
-                anonymizeItemToggle.setDisable(true);
-                dialog.close();
-                App.log = Anonym.anonymize(App.log);
-                UIBuilder.showCommits();
-            });
+            Views.criticalDecision("Attention!\nThis is a one way action.\nAfter anonymizing there is no way\nto recover the data.");
         });
         aboutItem.setOnAction(actionEvent -> {
             (new App()).getHostServices().showDocument("https://github.com/fabio-anzola/git-log-extractor");
@@ -101,6 +69,8 @@ public class UIBuilder {
         fileMenu.getItems().addAll(
                 openItem,
                 recentMenu,
+                saveItem,
+                saveAsItem,
                 prefItem,
                 quitItem);
         viewMenu.getItems().addAll(
