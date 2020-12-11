@@ -1,6 +1,7 @@
 package at.anzola.gitlogextraction.ui;
 
 import at.anzola.gitlogextraction.response.Commit;
+import at.anzola.gitlogextraction.utlis.Anonym;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -89,7 +90,8 @@ public class UIBuilder {
             ok.setOnAction(actionEvent1 -> {
                 anonymizeItemToggle.setDisable(true);
                 dialog.close();
-                //TODO anonymize!
+                App.log = Anonym.anonymize(App.log);
+                UIBuilder.showCommits();
             });
         });
         aboutItem.setOnAction(actionEvent -> {
@@ -125,10 +127,8 @@ public class UIBuilder {
 
     /**
      * Shows list of commits on screen
-     *
-     * @throws IOException If something goes wrong
      */
-    public static void showCommits() throws IOException {
+    public static void showCommits() {
         ArrayList<String> commits = new ArrayList<>();
         for (Commit commit : App.log.gitLog) {
             commits.add(String.format("Hash: %s \nAuthor: %s \nDate: %s \nMessage: %s",
