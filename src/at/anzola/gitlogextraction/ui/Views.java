@@ -11,7 +11,17 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * The Views class
+ *
+ * @author fabioanzola
+ */
 public class Views {
+    /**
+     * Simple 'ok' pop up box
+     *
+     * @param message The message to be shown
+     */
     public static void info(String message) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -27,6 +37,11 @@ public class Views {
         exit.setOnAction(exitEvent -> dialog.close());
     }
 
+    /**
+     * Critical 'ok'/'cancel' pop up box (used with anonymizing)
+     *
+     * @param message The message to be shown
+     */
     public static void criticalDecision(String message) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
