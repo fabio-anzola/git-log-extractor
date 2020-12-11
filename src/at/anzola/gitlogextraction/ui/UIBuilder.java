@@ -1,6 +1,7 @@
 package at.anzola.gitlogextraction.ui;
 
 import at.anzola.gitlogextraction.response.Commit;
+import at.anzola.gitlogextraction.utlis.Saver;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,6 +58,20 @@ public class UIBuilder {
                 (new App()).open();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+        saveItem.setOnAction(actionEvent -> {
+            if (anonymizeItemToggle.isSelected()) {
+                //TODO save
+            } else {
+                Views.info("Sie müssen den Log \n vor dem Speichern ändern.");
+            }
+        });
+        saveAsItem.setOnAction(actionEvent -> {
+            if (anonymizeItemToggle.isSelected()) {
+                //TODO Save as
+            } else {
+                Views.info("Sie müssen den Log \n vor dem Speichern ändern.");
             }
         });
         anonymizeItemToggle.setOnAction(actionEvent -> {

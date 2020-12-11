@@ -50,6 +50,7 @@ public class App extends Application {
 
         //Build UI
         UIBuilder.basicUI();
+        UIBuilder.anonymizeItemToggle.setDisable(true);
         vbox.getChildren().add(listv);
 
         //Show UI
@@ -89,6 +90,8 @@ public class App extends Application {
      */
     public void loadNew(File file) throws IOException {
         log = LogReader.read(file.getPath());
+        UIBuilder.anonymizeItemToggle.setDisable(false);
+        UIBuilder.anonymizeItemToggle.setSelected(false);
         UIBuilder.showCommits();
     }
 }
