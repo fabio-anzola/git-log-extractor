@@ -38,6 +38,11 @@ public class App extends Application {
     public static VBox vbox;
 
     /**
+     * Saves the current log
+     */
+    public static File currentLog;
+
+    /**
      * Recents menu
      */
     public static ListView<String> listv;
@@ -85,6 +90,7 @@ public class App extends Application {
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
+            currentLog = file;
             loadNew(file);
             MenuItem menuItem = new MenuItem(file.getName());
             menuItem.setOnAction(actionEvent -> {
