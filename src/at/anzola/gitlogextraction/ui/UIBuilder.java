@@ -74,7 +74,12 @@ public class UIBuilder {
         });
         saveAsItem.setOnAction(actionEvent -> {
             if (anonymizeItemToggle.isSelected()) {
-                //TODO Save as
+                try {
+                    LogWriter.saveAs(Views.fileSave());
+                } catch (IOException e) {
+                    Views.info("Sorry, something went wrong. \n Please try again or issue a bug.");
+                    e.printStackTrace();
+                }
             } else {
                 Views.info("Sie müssen den Log \n vor dem Speichern ändern.");
             }

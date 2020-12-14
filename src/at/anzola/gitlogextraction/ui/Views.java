@@ -8,8 +8,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 /**
  * The Views class
@@ -70,5 +73,15 @@ public class Views {
             App.log = Anonym.anonymize(App.log);
             UIBuilder.showCommits();
         });
+    }
+
+    /**
+     * Dialog to select where a File should be saved to
+     *
+     * @return The destination File
+     */
+    public static File fileSave() {
+        final FileChooser fileChooser = new FileChooser();
+        return fileChooser.showSaveDialog(App.stage);
     }
 }

@@ -5,6 +5,7 @@ import at.anzola.gitlogextraction.utlis.Anonym;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -17,12 +18,23 @@ import java.nio.file.Path;
  */
 public class LogWriter {
 
+    /**
+     * Called to overwrite the current log
+     *
+     * @throws IOException Thrown if an error happens
+     */
     public static void save() throws IOException {
         write(App.currentLog.toPath(), read(App.currentLog.toPath()));
     }
 
-    public static void saveAs() {
-
+    /**
+     * Called to save at a specific path
+     *
+     * @param file The File where to be saved
+     * @throws IOException Thrown if an error happens
+     */
+    public static void saveAs(File file) throws IOException {
+        write(file.toPath(), read(App.currentLog.toPath()));
     }
 
     /**
