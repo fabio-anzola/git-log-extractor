@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.ui;
 
+import at.anzola.gitlogextraction.reader.LogWriter;
 import at.anzola.gitlogextraction.response.Commit;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -61,7 +62,12 @@ public class UIBuilder {
         });
         saveItem.setOnAction(actionEvent -> {
             if (anonymizeItemToggle.isSelected()) {
-                //TODO save
+                try {
+                    LogWriter.save();
+                } catch (IOException e) {
+                    Views.info("Sorry, something went wrong. \n Please try again or issue a bug.");
+                    e.printStackTrace();
+                }
             } else {
                 Views.info("Sie müssen den Log \n vor dem Speichern ändern.");
             }

@@ -18,8 +18,9 @@ import java.nio.file.Path;
 public class LogWriter {
 
     public static void save() throws IOException {
-
+        write(App.currentLog.toPath(), read(App.currentLog.toPath()));
     }
+
     public static void saveAs() {
 
     }
@@ -55,7 +56,7 @@ public class LogWriter {
     /**
      * Writes text to specified file
      *
-     * @param path The path to get the log fom
+     * @param path    The path to get the log fom
      * @param content The content to be written
      * @throws IOException Thrown if an error happens
      */
