@@ -3,6 +3,7 @@ package at.anzola.gitlogextraction.ui;
 import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -47,6 +48,11 @@ public class App extends Application {
      */
     public static ListView<String> listv;
 
+    /**
+     * Items for ListView
+     */
+    public static ObservableList<String> listvItems;
+
     public static void main(String[] args) {
         if (Taskbar.isTaskbarSupported()) {
             if (Taskbar.getTaskbar().isSupported(Taskbar.Feature.ICON_IMAGE)) {
@@ -54,8 +60,7 @@ public class App extends Application {
                     File file = new File("resources/icon.png");
                     Image image = ImageIO.read(file);
                     Taskbar.getTaskbar().setIconImage(image);
-                }
-                catch (IOException ex) {
+                } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -116,5 +121,14 @@ public class App extends Application {
         UIBuilder.anonymizeItemToggle.setDisable(false);
         UIBuilder.anonymizeItemToggle.setSelected(false);
         UIBuilder.showCommits();
+    }
+
+    /**
+     * Updates ListView with item-list
+     */
+    public static void updateListView() {
+        App.listv.getItems().clear();
+        App.listv.setItems(listvItems);
+        App.listv.refresh();
     }
 }

@@ -129,9 +129,7 @@ public class UIBuilder {
             commits.add(String.format("Hash: %s \nAuthor: %s \nDate: %s \nMessage: %s",
                     commit.hash, commit.author, commit.authorDate.atZone(ZoneId.systemDefault()), commit.message));
         }
-        ObservableList<String> items = FXCollections.observableList(commits);
-        App.listv.getItems().clear();
-        App.listv.setItems(items);
-        App.listv.refresh();
+        App.listvItems = FXCollections.observableList(commits);
+        App.updateListView();
     }
 }
