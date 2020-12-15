@@ -33,12 +33,8 @@ public class UIUtils {
             @Override
             public int compare(String o1, String o2) {
 
-                System.out.printf("%s $$$ %s \n", o1, o2);
-
                 o1 = cutToWish(o1, lvsortI);
                 o2 = cutToWish(o2, lvsortI);
-
-                System.out.printf("%s &&& %s \n", o1, o2);
 
                 assert o1 != null;
                 if (o1.equals(o2)) {

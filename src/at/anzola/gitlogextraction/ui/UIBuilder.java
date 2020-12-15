@@ -26,7 +26,15 @@ public class UIBuilder {
      */
     public static Menu recent;
 
+    /**
+     * anonymizeItemToggle reference
+     */
     public static RadioMenuItem anonymizeItemToggle;
+
+    /**
+     * Sort by Date item
+     */
+    public static RadioMenuItem sortMenuDate;
 
     /**
      * Creates the basic ui
@@ -56,7 +64,7 @@ public class UIBuilder {
         RadioMenuItem sortMenuAuthor = new RadioMenuItem("Author");
         sortMenuAuthor.setToggleGroup(sortMenuToggleGroup);
 
-        RadioMenuItem sortMenuDate = new RadioMenuItem("Date");
+        sortMenuDate = new RadioMenuItem("Date");
         sortMenuDate.setToggleGroup(sortMenuToggleGroup);
 
         RadioMenuItem sortMenuMessage = new RadioMenuItem("Message");
@@ -165,6 +173,8 @@ public class UIBuilder {
                     commit.hash, commit.author, commit.authorDate.atZone(ZoneId.systemDefault()), commit.message));
         }
         App.listvItems = FXCollections.observableList(commits);
+        sortMenuDate.fire();
+        sortMenuDate.setSelected(true);
         App.updateListView();
     }
 }
