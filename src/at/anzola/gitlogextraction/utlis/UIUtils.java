@@ -7,4 +7,13 @@ package at.anzola.gitlogextraction.utlis;
  */
 public class UIUtils {
 
+    /**
+     * Sorting options
+     */
+    public enum lvsort {
+        hash,
+        author,
+        date,
+        message
+    }
 }
