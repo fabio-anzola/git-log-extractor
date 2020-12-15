@@ -2,6 +2,7 @@ package at.anzola.gitlogextraction.ui;
 
 import at.anzola.gitlogextraction.reader.LogWriter;
 import at.anzola.gitlogextraction.response.Commit;
+import at.anzola.gitlogextraction.utlis.UIUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +47,21 @@ public class UIBuilder {
         Menu viewMenu = new Menu("View");
         anonymizeItemToggle = new RadioMenuItem("Anonymize");
 
+        Menu sortMenu = new Menu("Sort by");
+        ToggleGroup sortMenuToggleGroup = new ToggleGroup();
+
+        RadioMenuItem sortMenuHash = new RadioMenuItem("Hash");
+        sortMenuHash.setToggleGroup(sortMenuToggleGroup);
+
+        RadioMenuItem sortMenuAuthor = new RadioMenuItem("Author");
+        sortMenuAuthor.setToggleGroup(sortMenuToggleGroup);
+
+        RadioMenuItem sortMenuDate = new RadioMenuItem("Date");
+        sortMenuDate.setToggleGroup(sortMenuToggleGroup);
+
+        RadioMenuItem sortMenuMessage = new RadioMenuItem("Message");
+        sortMenuMessage.setToggleGroup(sortMenuToggleGroup);
+
         Menu helpMenu = new Menu("Help");
         MenuItem aboutItem = new MenuItem("About Git Log Extraction");
 
@@ -87,6 +103,18 @@ public class UIBuilder {
         anonymizeItemToggle.setOnAction(actionEvent -> {
             Views.criticalDecision("Attention!\nThis is a one way action.\nAfter anonymizing there is no way\nto recover the data.");
         });
+        sortMenuAuthor.setOnAction(actionEvent -> {
+            App.listvItems = UIUtils.copareLV(App.listvItems, UIUtils.lvsort.author);
+        });
+        sortMenuHash.setOnAction(actionEvent -> {
+            App.listvItems = UIUtils.copareLV(App.listvItems, UIUtils.lvsort.hash);
+        });
+        sortMenuDate.setOnAction(actionEvent -> {
+            App.listvItems = UIUtils.copareLV(App.listvItems, UIUtils.lvsort.date);
+        });
+        sortMenuMessage.setOnAction(actionEvent -> {
+            App.listvItems = UIUtils.copareLV(App.listvItems, UIUtils.lvsort.message);
+        });
         aboutItem.setOnAction(actionEvent -> {
             (new App()).getHostServices().showDocument("https://github.com/fabio-anzola/git-log-extractor");
         });
@@ -98,8 +126,15 @@ public class UIBuilder {
                 saveAsItem,
                 prefItem,
                 quitItem);
+        sortMenu.getItems().addAll(
+                sortMenuAuthor,
+                sortMenuDate,
+                sortMenuHash,
+                sortMenuMessage
+        );
         viewMenu.getItems().addAll(
-                anonymizeItemToggle
+                anonymizeItemToggle,
+                sortMenu
         );
         helpMenu.getItems().addAll(
                 aboutItem
