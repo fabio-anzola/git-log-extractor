@@ -1,8 +1,15 @@
 package at.anzola.gitlogextraction.utlis;
 
+import at.anzola.gitlogextraction.ui.App;
+import at.anzola.gitlogextraction.ui.UIBuilder;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.stream.IntStream;
 
 /**
  * The UIUtils class
@@ -69,5 +76,26 @@ public class UIUtils {
             default:
                 return null;
         }
+    }
+
+    /**
+     * Filter ListView after given String
+     *
+     * @param search The String to be sorted after
+     */
+    public static void filterListView(String search) {
+        if (search.equals("")) {
+            App.listv.setItems(App.listvItems);
+            return;
+        }
+
+        ArrayList<String> filtered = new ArrayList<>();
+        for (String listvItem : App.listvItems) {
+            if (listvItem.contains(search)) {
+                filtered.add(listvItem);
+            }
+        }
+        App.listv.setItems(FXCollections.observableList(filtered));
+        App.listv.refresh();
     }
 }

@@ -43,6 +43,8 @@ public class UIBuilder {
         VBox vBox = new VBox();
         MenuBar menuBar = new MenuBar();
 
+        TextField searchInput = new TextField();
+
         Menu fileMenu = new Menu("File");
         MenuItem openItem = new MenuItem("Open...");
         Menu recentMenu = new Menu("Open Recent");
@@ -126,6 +128,9 @@ public class UIBuilder {
         aboutItem.setOnAction(actionEvent -> {
             (new App()).getHostServices().showDocument("https://github.com/fabio-anzola/git-log-extractor");
         });
+        searchInput.textProperty().addListener(obs-> {
+            UIUtils.filterListView(searchInput.getText());
+        });
 
         fileMenu.getItems().addAll(
                 openItem,
@@ -159,7 +164,7 @@ public class UIBuilder {
         list.setOrientation(Orientation.VERTICAL);
         App.listv = list;
 
-        vBox.getChildren().add(menuBar);
+        vBox.getChildren().addAll(menuBar, searchInput);
         App.vbox = vBox;
     }
 
