@@ -114,16 +114,16 @@ public class UIBuilder {
             Views.criticalDecision("Attention!\nThis is a one way action.\nAfter anonymizing there is no way\nto recover the data.");
         });
         sortMenuAuthor.setOnAction(actionEvent -> {
-            App.listvItems = UIUtils.copareLV(App.listvItems, UIUtils.lvsort.author);
+            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.lvsort.author);
         });
         sortMenuHash.setOnAction(actionEvent -> {
-            App.listvItems = UIUtils.copareLV(App.listvItems, UIUtils.lvsort.hash);
+            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.lvsort.hash);
         });
         sortMenuDate.setOnAction(actionEvent -> {
-            App.listvItems = UIUtils.copareLV(App.listvItems, UIUtils.lvsort.date);
+            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.lvsort.date);
         });
         sortMenuMessage.setOnAction(actionEvent -> {
-            App.listvItems = UIUtils.copareLV(App.listvItems, UIUtils.lvsort.message);
+            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.lvsort.message);
         });
         aboutItem.setOnAction(actionEvent -> {
             (new App()).getHostServices().showDocument("https://github.com/fabio-anzola/git-log-extractor");

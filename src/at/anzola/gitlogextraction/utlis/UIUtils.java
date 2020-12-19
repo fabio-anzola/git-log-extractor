@@ -1,15 +1,11 @@
 package at.anzola.gitlogextraction.utlis;
 
 import at.anzola.gitlogextraction.ui.App;
-import at.anzola.gitlogextraction.ui.UIBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.stream.IntStream;
 
 /**
  * The UIUtils class
@@ -32,10 +28,10 @@ public class UIUtils {
      * Sorts observableList depending on lvsortI
      *
      * @param observableList The list to sort
-     * @param lvsortI The options to be sorted after
+     * @param lvsortI        The options to be sorted after
      * @return The sorted list
      */
-    public static ObservableList<String> copareLV(ObservableList<String> observableList, lvsort lvsortI) {
+    public static ObservableList<String> compareLV(ObservableList<String> observableList, lvsort lvsortI) {
         observableList.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
