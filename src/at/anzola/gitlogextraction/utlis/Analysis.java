@@ -57,4 +57,30 @@ public class Analysis {
         }
     }
 
+    /**
+     * Get CommitsPerDay
+     *
+     * @return CommitsPerDay
+     */
+    public LongCounter<DayOfWeek> getCommitsPerDay() {
+        return commitsPerDay;
+    }
+
+    /**
+     * Get CommitsPerMonth
+     *
+     * @return CommitsPerMonth
+     */
+    public LongCounter<Month> getCommitsPerMonth() {
+        return commitsPerMonth;
+    }
+
+    /**
+     * Get CommitsPerYear
+     *
+     * @return CommitsPerYear
+     */
+    public LongCounter<String> getCommitsPerYear() {
+        return commitsPerYear;
+    }
 }
