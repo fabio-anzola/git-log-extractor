@@ -27,6 +27,11 @@ public class UIBuilder {
     public static Menu recent;
 
     /**
+     * View menu
+     */
+    public static Menu viewMenu;
+
+    /**
      * anonymizeItemToggle reference
      */
     public static RadioMenuItem anonymizeItemToggle;
@@ -54,7 +59,7 @@ public class UIBuilder {
         MenuItem prefItem = new MenuItem("Preferences...");
         MenuItem quitItem = new MenuItem("Quit");
 
-        Menu viewMenu = new Menu("View");
+        viewMenu = new Menu("View");
         anonymizeItemToggle = new RadioMenuItem("Anonymize");
 
         Menu sortMenu = new Menu("Sort by");
@@ -71,6 +76,20 @@ public class UIBuilder {
 
         RadioMenuItem sortMenuMessage = new RadioMenuItem("Message");
         sortMenuMessage.setToggleGroup(sortMenuToggleGroup);
+
+        Menu chartsMenu = new Menu("Charts");
+        MenuItem cpdChart = new MenuItem("Commits per Day");
+        MenuItem cpmChart = new MenuItem("Commits per Month");
+        MenuItem cpyChart = new MenuItem("Commits per Year");
+        cpdChart.setOnAction(actionEvent -> {
+            DiagramViews.createChart(DiagramViews.diagrams.day);
+        });
+        cpmChart.setOnAction(actionEvent -> {
+            DiagramViews.createChart(DiagramViews.diagrams.month);
+        });
+        cpyChart.setOnAction(actionEvent -> {
+            DiagramViews.createChart(DiagramViews.diagrams.year);
+        });
 
         Menu helpMenu = new Menu("Help");
         MenuItem aboutItem = new MenuItem("About Git Log Extraction");
@@ -145,9 +164,15 @@ public class UIBuilder {
                 sortMenuHash,
                 sortMenuMessage
         );
+        chartsMenu.getItems().addAll(
+                cpdChart,
+                cpmChart,
+                cpyChart
+        );
         viewMenu.getItems().addAll(
                 anonymizeItemToggle,
-                sortMenu
+                sortMenu,
+                chartsMenu
         );
         helpMenu.getItems().addAll(
                 aboutItem

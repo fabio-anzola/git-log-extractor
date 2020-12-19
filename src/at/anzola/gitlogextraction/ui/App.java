@@ -2,6 +2,7 @@ package at.anzola.gitlogextraction.ui;
 
 import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
+import at.anzola.gitlogextraction.utlis.Analysis;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -32,6 +33,11 @@ public class App extends Application {
      * The stage
      */
     public static Stage stage;
+
+    /**
+     * The analysis for Log
+     */
+    public static Analysis analysis;
 
     /**
      * Recents menu
@@ -75,6 +81,7 @@ public class App extends Application {
         //Build UI
         UIBuilder.basicUI();
         UIBuilder.anonymizeItemToggle.setDisable(true);
+        UIBuilder.viewMenu.setDisable(true);
         vbox.getChildren().add(listv);
 
         //App Icon
@@ -118,9 +125,11 @@ public class App extends Application {
      */
     public void loadNew(File file) throws IOException {
         log = LogReader.read(file.getPath());
+        UIBuilder.viewMenu.setDisable(false);
         UIBuilder.anonymizeItemToggle.setDisable(false);
         UIBuilder.anonymizeItemToggle.setSelected(false);
         UIBuilder.showCommits();
+        analysis = new Analysis(log);
     }
 
     /**
