@@ -40,7 +40,7 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Erzeugt einen <tt>LongCounter</tt> mit der Standardkapazität und dem Standard-Loadfaktor<br>
+     * Erzeugt einen LongCounter mit der Standardkapazität und dem Standard-Loadfaktor<br>
      */
     public LongCounter() {
         // nothing to do
