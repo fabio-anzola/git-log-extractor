@@ -106,4 +106,40 @@ public class Commit {
                 + ", message='" + message + '\''
                 + '}';
     }
+
+    /**
+     * Gets the hash
+     *
+     * @return The Hash
+     */
+    public String getHash() {
+        return hash;
+    }
+
+    /**
+     * Gets the Author
+     *
+     * @return The Author
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * Gets the AuthorDate
+     *
+     * @return The AuthorDate
+     */
+    public LocalDateTime getAuthorDate() {
+        return authorDate;
+    }
+
+    /**
+     * Gets the Message
+     *
+     * @return The Message
+     */
+    public String getMessage() {
+        return message;
+    }
 }

@@ -63,7 +63,7 @@ public class App extends Application {
         if (Taskbar.isTaskbarSupported()) {
             if (Taskbar.getTaskbar().isSupported(Taskbar.Feature.ICON_IMAGE)) {
                 try {
-                    File file = new File("resources/icon.png");
+                    File file = new File("src/main/resources/icon.png");
                     Image image = ImageIO.read(file);
                     Taskbar.getTaskbar().setIconImage(image);
                 } catch (IOException ex) {
@@ -85,7 +85,7 @@ public class App extends Application {
         vbox.getChildren().add(listv);
 
         //App Icon
-        stage.getIcons().add(new javafx.scene.image.Image("file:resources/icon.png"));
+        stage.getIcons().add(new javafx.scene.image.Image("file:src/main/resources/icon.png"));
 
         //Show UI
         stage.setTitle("Git Log Extraction App");
