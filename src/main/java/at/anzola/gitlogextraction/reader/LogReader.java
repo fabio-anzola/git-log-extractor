@@ -90,4 +90,49 @@ public class LogReader {
         }
         return log;
     }
+
+    /**
+     * Reads the log and outputs the object
+     *
+     * @param plainLog The log file
+     * @return The log object
+     */
+    public static Log read(byte[] plainLog) {
+        Log log = new Log();
+        String hash = "";
+        String author = "";
+        LocalDateTime authorDate = null;
+        String message = "";
+        String[] strings = new String(plainLog).split("\n");
+        for (String line : strings) {
+            if (line.matches(REGEX_COMMIT) && !hash.equals("")) {
+                Commit commit = new Commit(hash, author, authorDate, message);
+                log.gitLog.add(commit);
+                hash = "";
+                author = "";
+                authorDate = null;
+                message = "";
+            }
+
+            if (line.matches(REGEX_COMMIT)) {
+                hash = line.split(" ")[1].trim();
+            } else if (line.matches(REGEX_AUTHOR)) {
+                author = line.substring(7).trim();
+            } else if (line.matches(REGEX_DATE)) {
+                authorDate = CommitDate.of(line.substring(7).trim());
+            } else {
+                if (!line.equals("")) {
+                    if (!message.equals("")) {
+                        message += ':';
+                        message += line.trim();
+                    } else {
+                        message += line.trim();
+                    }
+                }
+            }
+        }
+        Commit commit = new Commit(hash, author, authorDate, message);
+        log.gitLog.add(commit);
+        return log;
+    }
 }
