@@ -3,6 +3,7 @@ package at.anzola.gitlogextraction.ui;
 import at.anzola.gitlogextraction.reader.LogWriter;
 import at.anzola.gitlogextraction.response.Commit;
 import at.anzola.gitlogextraction.utlis.UIUtils;
+import at.anzola.gitlogextraction.utlis.diagrams;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,13 +83,13 @@ public class UIBuilder {
         MenuItem cpmChart = new MenuItem("Commits per Month");
         MenuItem cpyChart = new MenuItem("Commits per Year");
         cpdChart.setOnAction(actionEvent -> {
-            DiagramViews.createChart(DiagramViews.diagrams.day);
+            DiagramViews.createChart(diagrams.day);
         });
         cpmChart.setOnAction(actionEvent -> {
-            DiagramViews.createChart(DiagramViews.diagrams.month);
+            DiagramViews.createChart(diagrams.month);
         });
         cpyChart.setOnAction(actionEvent -> {
-            DiagramViews.createChart(DiagramViews.diagrams.year);
+            DiagramViews.createChart(diagrams.year);
         });
 
         Menu helpMenu = new Menu("Help");

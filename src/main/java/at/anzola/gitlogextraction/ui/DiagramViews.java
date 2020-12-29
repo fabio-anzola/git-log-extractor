@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.ui;
 
+import at.anzola.gitlogextraction.utlis.diagrams;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -19,15 +20,6 @@ import java.util.Map;
  * @author fabioanzola
  */
 public class DiagramViews {
-
-    /**
-     * Diagram options
-     */
-    public enum diagrams {
-        year,
-        month,
-        day
-    }
 
     /**
      * Contains the titles for the different Charts
