@@ -4,9 +4,8 @@ import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.webui.views.main.MainView;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.details.Details;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.upload.Upload;
@@ -25,7 +24,21 @@ public class UploadView extends HorizontalLayout {
 
     public UploadView() {
         setId("upload-view");
+        createHowTo();
         createLayout();
+    }
+
+    private void createHowTo() {
+        Details component = new Details(
+                "How to",
+                new OrderedList(
+                        new ListItem("Execute the following command in your bash: git log > log.txt"),
+                        new ListItem("Upload the log.txt file by clicking on 'Upload File' are via drag&drop"),
+                        new ListItem("(optional) Anonymize the log file via a simple click on 'Anonymize!'"),
+                        new ListItem("Now you can easily examine you log either in the 'List' tab or in the 'Charts' tab")
+                ));
+
+        add(component);
     }
 
     private void createLayout() {
