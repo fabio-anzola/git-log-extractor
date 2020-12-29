@@ -35,8 +35,6 @@ import java.util.List;
  */
 @Route(value = "list", layout = MainView.class)
 @PageTitle("List")
-@CssImport(value = "./styles/views/list/list-view.css", include = "lumo-badge")
-@JsModule("@vaadin/vaadin-lumo-styles/badge.js")
 public class ListView extends Div {
 
     /**
