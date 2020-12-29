@@ -12,6 +12,7 @@ import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.provider.SortDirection;
@@ -70,7 +71,12 @@ public class ListView extends Div {
     }
 
     private Collection<Commit> getCommits() {
-        return ((Log) UI.getCurrent().getSession().getAttribute("latestLog")).gitLog;
+        try {
+            return ((Log) UI.getCurrent().getSession().getAttribute("latestLog")).gitLog;
+        } catch (NullPointerException e) {
+            Notification.show("You have to upload a Log before it can be displayed here.");
+            return new ArrayList<>();
+        }
     }
 
     private void addColumnsToGrid() {
