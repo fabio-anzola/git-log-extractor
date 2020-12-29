@@ -1,6 +1,6 @@
 package at.anzola.gitlogextraction.ui;
 
-import at.anzola.gitlogextraction.utlis.diagrams;
+import at.anzola.gitlogextraction.utlis.Diagrams;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -24,10 +24,10 @@ public class DiagramViews {
     /**
      * Contains the titles for the different Charts
      */
-    private static Map<diagrams, String> titles = new HashMap<diagrams, String>() {{
-        put(diagrams.year, "Commits per Year");
-        put(diagrams.month, "Commits per Month");
-        put(diagrams.day, "Commits per Day");
+    private static Map<Diagrams, String> titles = new HashMap<Diagrams, String>() {{
+        put(Diagrams.year, "Commits per Year");
+        put(Diagrams.month, "Commits per Month");
+        put(Diagrams.day, "Commits per Day");
     }};
 
     /**
@@ -40,7 +40,7 @@ public class DiagramViews {
      *
      * @param diagramsI The desired diagram type
      */
-    public static void createChart(diagrams diagramsI) {
+    public static void createChart(Diagrams diagramsI) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(App.stage);

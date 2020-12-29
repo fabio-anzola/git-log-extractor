@@ -5,7 +5,7 @@ package at.anzola.gitlogextraction.utlis;
  *
  * @author fabioanzola
  */
-public enum diagrams {
+public enum Diagrams {
     year,
     month,
     day
