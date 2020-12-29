@@ -1,38 +1,31 @@
 package at.anzola.gitlogextraction.webui.views.list;
 
-import java.io.IOException;
-import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-
-import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Commit;
 import at.anzola.gitlogextraction.response.Log;
-import org.apache.commons.lang3.StringUtils;
-
-import com.vaadin.flow.component.combobox.ComboBox;
+import at.anzola.gitlogextraction.webui.views.main.MainView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.HeaderRow;
-import com.vaadin.flow.component.gridpro.GridPro;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
-import com.vaadin.flow.data.renderer.NumberRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import at.anzola.gitlogextraction.webui.views.main.MainView;
+import org.apache.commons.lang3.StringUtils;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Route(value = "list", layout = MainView.class)
 @PageTitle("List")
@@ -40,7 +33,7 @@ import at.anzola.gitlogextraction.webui.views.main.MainView;
 @JsModule("@vaadin/vaadin-lumo-styles/badge.js")
 public class ListView extends Div {
 
-    private GridPro<Commit> grid;
+    private Grid<Commit> grid;
     private ListDataProvider<Commit> dataProvider;
 
     private Grid.Column<Commit> hashColumn;
@@ -53,6 +46,10 @@ public class ListView extends Div {
         setSizeFull();
         createGrid();
         add(grid);
+
+        List<GridSortOrder<Commit>> orders = new ArrayList<GridSortOrder<Commit>>();
+        orders.add(new GridSortOrder<>(authorDateColumn, SortDirection.ASCENDING));
+        grid.sort(orders);
     }
 
     private void createGrid() {
@@ -62,18 +59,18 @@ public class ListView extends Div {
     }
 
     private void createGridComponent() {
-        grid = new GridPro<>();
-        //grid.setSelectionMode(SelectionMode.MULTI);
+        grid = new Grid<>();
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COLUMN_BORDERS);
         grid.setHeight("100%");
+
+        grid.setMultiSort(true);
 
         dataProvider = new ListDataProvider<Commit>(getCommits());
         grid.setDataProvider(dataProvider);
     }
 
     private Collection<Commit> getCommits() {
-        //TODO Get Commits
-        return new ArrayList<Commit>();
+        return ((Log) UI.getCurrent().getSession().getAttribute("latestLog")).gitLog;
     }
 
     private void addColumnsToGrid() {
@@ -92,7 +89,6 @@ public class ListView extends Div {
     }
 
     private void createAuthorDateColumn() {
-        //authorDateColumn = grid.addColumn(Commit::getAuthorDate, "authorDate").setHeader("Date").setWidth("120px").setFlexGrow(0);
         authorDateColumn = grid
                 .addColumn(new LocalDateRenderer<>(commit -> commit.getAuthorDate().toLocalDate(),
                         DateTimeFormatter.ofPattern("M/d/yyyy")))
@@ -149,4 +145,4 @@ public class ListView extends Div {
         }
         return true;
     }
-};
+}
