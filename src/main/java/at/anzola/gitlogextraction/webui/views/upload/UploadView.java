@@ -19,18 +19,29 @@ import com.vaadin.flow.router.RouteAlias;
 
 import java.io.IOException;
 
+/**
+ * The UploadView class
+ *
+ * @author fabioanzola
+ */
 @Route(value = "upload", layout = MainView.class)
 @PageTitle("Upload")
 @CssImport("./styles/views/upload/upload-view.css")
 @RouteAlias(value = "", layout = MainView.class)
 public class UploadView extends HorizontalLayout {
 
+    /**
+     * Constructor for UploadView
+     */
     public UploadView() {
         setId("upload-view");
         createHowTo();
         createLayout();
     }
 
+    /**
+     * Creates HowTo component
+     */
     private void createHowTo() {
         Details component = new Details(
                 "How to",
@@ -44,6 +55,9 @@ public class UploadView extends HorizontalLayout {
         add(component);
     }
 
+    /**
+     * Creates Main Layout
+     */
     private void createLayout() {
         MemoryBuffer buffer = new MemoryBuffer();
         Upload upload = new Upload(buffer);
@@ -85,13 +99,17 @@ public class UploadView extends HorizontalLayout {
         add(upload, output, anonymize, label);
     }
 
+    /**
+     * Shows output when File is uploaded
+     *
+     * @param text            The text to be shown
+     * @param content         The content
+     * @param outputContainer The component container
+     */
     private void showOutput(String text, Component content, HasComponents outputContainer) {
         HtmlComponent p = new HtmlComponent(Tag.P);
         p.getElement().setText(text);
         outputContainer.add(p);
         outputContainer.add(content);
     }
-
-    //TODO Design Page for Log uploading
-
 }

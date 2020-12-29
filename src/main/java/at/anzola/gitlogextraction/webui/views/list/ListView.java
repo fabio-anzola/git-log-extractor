@@ -28,20 +28,50 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The ListView class
+ *
+ * @author fabioanzola
+ */
 @Route(value = "list", layout = MainView.class)
 @PageTitle("List")
 @CssImport(value = "./styles/views/list/list-view.css", include = "lumo-badge")
 @JsModule("@vaadin/vaadin-lumo-styles/badge.js")
 public class ListView extends Div {
 
+    /**
+     * Contains the Grid
+     */
     private Grid<Commit> grid;
+
+    /**
+     * List (Data) for Grid
+     */
     private ListDataProvider<Commit> dataProvider;
 
+    /**
+     * Grid-Column containing the Hash
+     */
     private Grid.Column<Commit> hashColumn;
+
+    /**
+     * Grid-Column containing the Author
+     */
     private Grid.Column<Commit> authorColumn;
+
+    /**
+     * Grid-Column containing the Author Date
+     */
     private Grid.Column<Commit> authorDateColumn;
+
+    /**
+     * Grid-Column containing the Message
+     */
     private Grid.Column<Commit> messageColumn;
 
+    /**
+     * Constructor for ListView
+     */
     public ListView() {
         setId("list-view");
         setSizeFull();
@@ -53,12 +83,18 @@ public class ListView extends Div {
         grid.sort(orders);
     }
 
+    /**
+     * Generates the Layout
+     */
     private void createGrid() {
         createGridComponent();
         addColumnsToGrid();
         addFiltersToGrid();
     }
 
+    /**
+     * Creates Grid
+     */
     private void createGridComponent() {
         grid = new Grid<>();
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COLUMN_BORDERS);
@@ -70,6 +106,11 @@ public class ListView extends Div {
         grid.setDataProvider(dataProvider);
     }
 
+    /**
+     * Gets Data
+     *
+     * @return the Data for the Grid
+     */
     private Collection<Commit> getCommits() {
         try {
             return ((Log) UI.getCurrent().getSession().getAttribute("latestLog")).gitLog;
@@ -79,6 +120,9 @@ public class ListView extends Div {
         }
     }
 
+    /**
+     * Adds Columns to Grid
+     */
     private void addColumnsToGrid() {
         createHashColumn();
         createAuthorColumn();
@@ -86,14 +130,23 @@ public class ListView extends Div {
         createMessageColumn();
     }
 
+    /**
+     * Creates the Grid-Column for the Hash
+     */
     private void createHashColumn() {
         hashColumn = grid.addColumn(Commit::getHash, "hash").setHeader("Hash").setAutoWidth(true);
     }
 
+    /**
+     * Creates the Grid-Column for the Author
+     */
     private void createAuthorColumn() {
         authorColumn = grid.addColumn(Commit::getAuthor, "author").setHeader("Author").setAutoWidth(true);
     }
 
+    /**
+     * Creates the Grid-Column for the Author Date
+     */
     private void createAuthorDateColumn() {
         authorDateColumn = grid
                 .addColumn(new LocalDateRenderer<>(commit -> commit.getAuthorDate().toLocalDate(),
@@ -101,10 +154,16 @@ public class ListView extends Div {
                 .setComparator(commit -> commit.getAuthorDate().toLocalDate()).setHeader("Date").setAutoWidth(true);
     }
 
+    /**
+     * Creates the Grid-Column for the Message
+     */
     private void createMessageColumn() {
         messageColumn = grid.addColumn(Commit::getMessage, "message").setHeader("Message").setAutoWidth(true);
     }
 
+    /**
+     * Adds the Filters to the Grid
+     */
     private void addFiltersToGrid() {
         HeaderRow filterRow = grid.appendHeaderRow();
 
@@ -143,6 +202,13 @@ public class ListView extends Div {
         filterRow.getCell(authorDateColumn).setComponent(dateFilter);
     }
 
+    /**
+     * Checks if two Dates are equal
+     *
+     * @param commit     The Commit to be checked
+     * @param dateFilter The DateFilter to be checked against
+     * @return If they are equal / their relationship
+     */
     private boolean areDatesEqual(Commit commit, DatePicker dateFilter) {
         LocalDate dateFilterValue = dateFilter.getValue();
         if (dateFilterValue != null) {

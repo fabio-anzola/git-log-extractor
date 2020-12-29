@@ -1,7 +1,6 @@
 package at.anzola.gitlogextraction.webui.views.charts;
 
 import at.anzola.gitlogextraction.response.Log;
-import at.anzola.gitlogextraction.ui.App;
 import at.anzola.gitlogextraction.utlis.Analysis;
 import at.anzola.gitlogextraction.utlis.Diagrams;
 import at.anzola.gitlogextraction.webui.views.main.MainView;
@@ -12,18 +11,27 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import javafx.scene.chart.XYChart;
 
 import java.time.DayOfWeek;
 import java.time.Month;
-import java.util.Arrays;
 
+/**
+ * The ChartsView class
+ *
+ * @author fabioanzola
+ */
 @Route(value = "charts", layout = MainView.class)
 @PageTitle("Charts")
 public class ChartsView extends Div {
 
+    /**
+     * The private reference to the Log
+     */
     private Log log;
 
+    /**
+     * Constructor, collects the log
+     */
     public ChartsView() {
         setId("charts-view");
 
@@ -35,12 +43,20 @@ public class ChartsView extends Div {
         }
     }
 
+    /**
+     * Creates the charts
+     */
     private void createLayout() {
         createChart(Diagrams.day);
         createChart(Diagrams.month);
         createChart(Diagrams.year);
     }
 
+    /**
+     * Method for all kinds of diagrams
+     *
+     * @param diagrams Which kind of diagram
+     */
     private void createChart(Diagrams diagrams) {
         Chart chart = new Chart(ChartType.COLUMN);
 
@@ -48,7 +64,7 @@ public class ChartsView extends Div {
         conf.setTitle(String.format(
                 "Commits per %s",
                 diagrams.name().toUpperCase().charAt(0)
-                + diagrams.name().toLowerCase().substring(1))
+                        + diagrams.name().toLowerCase().substring(1))
         );
         conf.setSubTitle(String.format("An absolute graph of all commits made, grouped by their %s", diagrams.name().toLowerCase()));
 
@@ -120,7 +136,4 @@ public class ChartsView extends Div {
 
         add(chart);
     }
-
-    //TODO Automatically generate and view the charts for the uploaded Log
-
 }
