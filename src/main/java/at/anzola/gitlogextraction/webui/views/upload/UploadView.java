@@ -1,8 +1,11 @@
 package at.anzola.gitlogextraction.webui.views.upload;
 
 import at.anzola.gitlogextraction.reader.LogReader;
+import at.anzola.gitlogextraction.response.Log;
+import at.anzola.gitlogextraction.utlis.Anonym;
 import at.anzola.gitlogextraction.webui.views.main.MainView;
 import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.html.*;
@@ -64,7 +67,22 @@ public class UploadView extends HorizontalLayout {
             }
         });
 
-        add(upload, output);
+        Button anonymize = new Button("Anonymize!");
+        anonymize.addClickListener(buttonClickEvent -> {
+            try {
+                UI.getCurrent().getSession().setAttribute(
+                        "latestLog",
+                        Anonym.anonymize(((Log) UI.getCurrent().getSession().getAttribute("latestLog")))
+                );
+            } catch (NullPointerException e) {
+                Notification.show("You have to upload a Log before it can be anonymized.");
+            }
+        });
+        anonymize.setId("anonbutt");
+        Label label = new Label("Click here to anonymize the log");
+        label.setFor("anonbutt");
+
+        add(upload, output, anonymize, label);
     }
 
     private void showOutput(String text, Component content, HasComponents outputContainer) {
