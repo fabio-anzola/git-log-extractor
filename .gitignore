@@ -147,7 +147,7 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,java,macos
 
-logfiles
+src/main/resources/logfiles
 *.ai
 
 # The following files are generated/updated by vaadin-maven-plugin
@@ -162,3 +162,8 @@ webpack.generated.js
 
 # Docker
 Dockerfile
+.dockerignore
+
+#Tests
+test/
+testResources/
