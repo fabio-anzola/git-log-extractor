@@ -35,6 +35,11 @@ public class App extends Application {
     public static Stage stage;
 
     /**
+     * The scene
+     */
+    public static Scene scene;
+
+    /**
      * The analysis for Log
      */
     public static Analysis analysis;
@@ -87,9 +92,12 @@ public class App extends Application {
         //App Icon
         stage.getIcons().add(new javafx.scene.image.Image("file:src/main/resources/icon.png"));
 
+        //Set scene
+        scene = new Scene(vbox, 800, 500);
+
         //Show UI
         stage.setTitle("Git Log Extraction App");
-        stage.setScene(new Scene(vbox, 800, 500));
+        stage.setScene(scene);
         stage.show();
     }
 

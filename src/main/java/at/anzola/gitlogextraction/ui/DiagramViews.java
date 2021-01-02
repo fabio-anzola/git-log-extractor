@@ -9,6 +9,7 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.HashMap;
@@ -69,6 +70,9 @@ public class DiagramViews {
         barchart.getData().add(series);
 
         Scene dialogScene = new Scene(barchart, 500, 500);
+        if (App.scene.getStylesheets().size() > 0) {
+            dialogScene.getStylesheets().add(new File("src/main/resources/javafx/frontend/dark_style.css").toURI().toString());
+        }
         dialog.setScene(dialogScene);
         dialog.show();
     }

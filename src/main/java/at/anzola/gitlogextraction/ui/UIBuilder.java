@@ -2,8 +2,8 @@ package at.anzola.gitlogextraction.ui;
 
 import at.anzola.gitlogextraction.reader.LogWriter;
 import at.anzola.gitlogextraction.response.Commit;
-import at.anzola.gitlogextraction.utlis.UIUtils;
 import at.anzola.gitlogextraction.utlis.Diagrams;
+import at.anzola.gitlogextraction.utlis.UIUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +11,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -57,7 +58,10 @@ public class UIBuilder {
         MenuItem saveItem = new MenuItem("Save");
         MenuItem saveAsItem = new MenuItem("Save as");
         recent = recentMenu;
-        MenuItem prefItem = new MenuItem("Preferences...");
+        MenuItem prefItem = new MenuItem("Change Theme");
+        prefItem.setOnAction(actionEvent -> {
+            changeStylesheet(App.scene.getStylesheets().size() > 0);
+        });
         MenuItem quitItem = new MenuItem("Quit");
 
         viewMenu = new Menu("View");
@@ -148,7 +152,7 @@ public class UIBuilder {
         aboutItem.setOnAction(actionEvent -> {
             (new App()).getHostServices().showDocument("https://github.com/fabio-anzola/git-log-extractor");
         });
-        searchInput.textProperty().addListener(obs-> {
+        searchInput.textProperty().addListener(obs -> {
             UIUtils.filterListView(searchInput.getText());
         });
 
@@ -207,5 +211,19 @@ public class UIBuilder {
         sortMenuDate.fire();
         sortMenuDate.setSelected(true);
         App.updateListView();
+    }
+
+    /**
+     * Changes style of App.scene
+     *
+     * @param isDark If dark theme is applied
+     */
+    public static void changeStylesheet(boolean isDark) {
+        if (isDark) {
+            App.scene.getStylesheets().remove(0);
+        } else {
+            App.scene.getStylesheets().add(new File("src/main/resources/javafx/frontend/dark_style.css").toURI().toString());
+        }
+        App.stage.show();
     }
 }
