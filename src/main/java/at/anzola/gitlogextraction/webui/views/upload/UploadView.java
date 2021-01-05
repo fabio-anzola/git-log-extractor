@@ -16,8 +16,12 @@ import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.server.StreamRegistration;
+import com.vaadin.flow.server.StreamResource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * The UploadView class
@@ -76,27 +80,61 @@ public class UploadView extends HorizontalLayout {
             Notification.show("Upload successful!");
             try {
                 UI.getCurrent().getSession().setAttribute("latestLog", LogReader.read(buffer.getInputStream().readAllBytes()));
+                UI.getCurrent().getSession().setAttribute("fullLog", new String(buffer.getInputStream().readAllBytes()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
-        Button anonymize = new Button("Anonymize!");
+        Button anonymize = new Button("Anonymize your Log");
         anonymize.addClickListener(buttonClickEvent -> {
             try {
+                //Anonymize Log to Display and work with
                 UI.getCurrent().getSession().setAttribute(
                         "latestLog",
                         Anonym.anonymize(((Log) UI.getCurrent().getSession().getAttribute("latestLog")))
                 );
+
+                //Anonymize Full Log to be downloaded
+                String log = (String) UI.getCurrent().getSession().getAttribute("fullLog");
+                for (String s : Anonym.users.keySet()) {
+                    if (log.contains(s)) {
+                        log = log.replaceAll(s, Anonym.users.get(s));
+                    }
+                }
+                UI.getCurrent().getSession().setAttribute("fullLog", log);
+
+
             } catch (NullPointerException e) {
+                e.printStackTrace();
                 Notification.show("You have to upload a Log before it can be anonymized.");
             }
         });
-        anonymize.setId("anonbutt");
-        Label label = new Label("Click here to anonymize the log");
-        label.setFor("anonbutt");
 
-        add(upload, output, anonymize, label);
+        Button download = new Button("Download your Log");
+        download.addClickListener(buttonClickEvent -> {
+            try {
+                final String log = (String) UI.getCurrent().getSession().getAttribute("fullLog");
+
+                if (null == log) throw new NullPointerException("Thrown bc log is null");
+
+                final StreamResource streamResource = new StreamResource(String.format("log%s.txt", UI.getCurrent().getSession().getPushId()),
+                        () -> new ByteArrayInputStream(log.getBytes(StandardCharsets.UTF_8)));
+                streamResource.setContentType("application/x-unknown"); //Help what am I doing here; Not a nice solution for download!
+                streamResource.setCacheTime(0);
+
+                final StreamRegistration registration = UI.getCurrent().getSession().getResourceRegistry().registerResource(streamResource);
+
+                UI.getCurrent().getPage().open(String.valueOf(registration.getResourceUri()), "_blank");
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                Notification.show("You have to upload a Log before it can be downloaded.");
+            }
+        });
+
+        HorizontalLayout horizontalLayout = new HorizontalLayout(anonymize, download);
+        add(upload, output, horizontalLayout);
     }
 
     /**
