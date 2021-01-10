@@ -16,16 +16,12 @@ import java.util.Map;
  */
 public class LongCounter<K> extends HashMap<K, Long> {
     /**
-     * Standard-Vergleichsoperator für Keys, die Comparable implementieren,
-     * wird z.B. für {@link #mostCommon(int)} verwendet
+     * Standard Comparator for Keys
      */
     private Comparator<K> keyComparator = (a, b) -> ((Comparable) a).compareTo((Comparable) b);
 
     /**
-     * Vergleichsoperator für Value- und Key-Paare,
-     * so dass zuerst nach der Value und dann nach dem Key gereiht wird.<br>
-     * Der Key-Comparator kann mittels {@link #LongCounter(Comparator)} gesetzt werden.
-     * wird z.B. für {@link #mostCommon(int)} verwendet
+     * Comparator for Value- and Key- pairs
      */
     private final Comparator<Entry<K, Long>> entryComparator = (a, b) -> {
         int d = Long.compare(a.getValue(), b.getValue());
@@ -36,35 +32,34 @@ public class LongCounter<K> extends HashMap<K, Long> {
     };
 
     /**
-     * Der keyComperator wird zum Sortieren für {@link #mostCommon(int)}} und
-     * {@link #lessCommon(int)} vewendet.
+     * Key-comparator used for sorting
      *
-     * @param keyComparator zum Sortieren der Keys
+     * @param keyComparator for sorting of keys
      */
     public LongCounter(Comparator<K> keyComparator) {
         this.keyComparator = keyComparator;
     }
 
     /**
-     * Erzeugt einen LongCounter mit der Standardkapazität und dem Standard-Loadfaktor<br>
+     * Generates a new LongCounter with Standard-capacity & load-factor
      */
     public LongCounter() {
         // nothing to do
     }
 
     /**
-     * Erzeugt eine LongCounter aus einer beliebigen Map die Long-Values hat
+     * Creates LongCounter out of generic map with Long values
      *
-     * @param m die Map mit den schon gezählten Werden
+     * @param m The map
      */
     public LongCounter(Map<? extends K, Long> m) {
         super(m);
     }
 
     /**
-     * Erzeugt einen LongCounter aus dem Objekt-Array
+     * Creates LongCounter out of Object Array
      *
-     * @param k das Array mit den zu zählenden Elementen
+     * @param k an Array with elements to be counted
      */
     public LongCounter(K... k) {
         for (K value : k) {
@@ -73,9 +68,9 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Erzeugt einen LongCounter aus der Collection
+     * Creates LongCounter out of Collection
      *
-     * @param k das Array mit den zu zählenden Elementen
+     * @param k The Collection to be counted from
      */
     public LongCounter(Collection<K> k) {
         Iterator<K> iterator = k.iterator();
@@ -85,10 +80,10 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Erzeugt einen LongCounter aus einem String und zählt alle Zeichen in dem String.
+     * Generates a LongCounter out of a String (Counts characters)
      *
-     * @param s die zu zählenden Zeichen
-     * @return der LongCounter, der alle Zeichen gezählt hat
+     * @param s The Symbols to be counted
+     * @return The LongCounter object
      */
     public static LongCounter<Character> fromString(CharSequence s) {
         LongCounter<Character> counter = new LongCounter<>();
@@ -100,11 +95,11 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Erhöht den Counter um "value" für den Key.
+     * Increases the counter by "value" for the Key
      *
-     * @param key   der Key, dessen value verändert wird
-     * @param value der Wert, um den der Counter verändert werden soll
-     * @return der alte Wert des Counters oder null
+     * @param key   The Key to be incremented
+     * @param value The Value to be increased by
+     * @return The old value or null
      */
     public Long put(K key, long value) {
         if (this.containsKey(key)) {
@@ -118,10 +113,10 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Erhöht den Counter um Eins für den Key.
+     * Increases the counter for the Key by 1
      *
-     * @param key der Key, dessen value verändert wird
-     * @return der alte Wert des Counters oder null
+     * @param key The key which should e incremented
+     * @return The old value of the Key or null
      */
     public Long put(K key) {
         if (this.containsKey(key)) {
@@ -135,9 +130,9 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Erhöht (addiert) die Werte aus der Map "m" zum LongCounter.
+     * Increases the Values from Map "m" to LongCouter
      *
-     * @param m die Map mit den zu addierenden Werten
+     * @param m The Map with the added values
      */
     public void putAll(Map<? extends K, ? extends Long> m) {
         for (Entry<? extends K, ? extends Long> entry : m.entrySet()) {
@@ -150,19 +145,19 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Vermindert (subtrahiert) die Werte aus der Map "m" zum LongCounter.
+     * Decreases the Values from Map "m" to LongCouter
      *
-     * @param m die Map mit den zu subtrahierenden Werten
+     * @param m The Map with the subtracted values
      */
     public void subtractAll(Map<? extends K, ? extends Long> m) {
         m.forEach((key, value) -> this.put(key, -value));
     }
 
     /**
-     * Liefert (max.) die "n"-häufigsten Werte, sortiert nach Häufigkeit und danach nach den Keys.
+     * Returns Key with max amount of value, sorts afterwards
      *
-     * @param n die Anzahl der Werte
-     * @return die Liste mit den Key/Counter-Paaren
+     * @param n The number of values
+     * @return A list from Key/Counter
      */
     public List<Entry<K, Long>> mostCommon(int n) {
         List<Entry<K, Long>> entrys = new ArrayList<>(entrySet());
@@ -172,10 +167,10 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Liefert (max.) die "n"-seltensten Werte, sortiert nach Häufigkeit und danach nach den Keys.
+     * Returns Key with min amount of value, sorts afterwards
      *
-     * @param n die Anzahl der Werte
-     * @return die Liste mit den Key/Counter-Paaren
+     * @param n The number of values
+     * @return A list from Key/Counter
      */
     public List<Entry<K, Long>> lessCommon(int n) {
         List<Entry<K, Long>> entrys = new ArrayList<>(entrySet());
@@ -184,10 +179,9 @@ public class LongCounter<K> extends HashMap<K, Long> {
     }
 
     /**
-     * Löscht alle Einträge aus der Map, deren Counter == 0 ist.
+     * Deletes all Values with Counter-value == 0
      */
     public void clearZeros() {
-        // Can't use loop; use Iterator
         entrySet().removeIf(kLongEntry -> kLongEntry.getValue() == 0);
     }
 }
