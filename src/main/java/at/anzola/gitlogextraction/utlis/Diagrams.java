@@ -6,7 +6,16 @@ package at.anzola.gitlogextraction.utlis;
  * @author fabioanzola
  */
 public enum Diagrams {
+    /**
+     * Diagram per year
+     */
     year,
+    /**
+     * Diagram per month
+     */
     month,
+    /**
+     * Diagram per day
+     */
     day
 }

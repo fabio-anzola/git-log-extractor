@@ -110,8 +110,7 @@ public class ListView extends Div {
     private Collection<Commit> getCommits() {
         try {
             return ((Log) UI.getCurrent().getSession().getAttribute("latestLog")).gitLog;
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             Notification.show("You have to upload a Log before it can be displayed here.");
             return new ArrayList<>();
         }

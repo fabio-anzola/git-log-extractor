@@ -4,11 +4,19 @@ import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
 import at.anzola.gitlogextraction.utlis.Anonym;
 import at.anzola.gitlogextraction.webui.views.main.MainView;
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.HtmlComponent;
+import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.details.Details;
-import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.ListItem;
+import com.vaadin.flow.component.html.OrderedList;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.upload.Upload;
@@ -81,8 +89,7 @@ public class UploadView extends HorizontalLayout {
             try {
                 UI.getCurrent().getSession().setAttribute("latestLog", LogReader.read(buffer.getInputStream().readAllBytes()));
                 UI.getCurrent().getSession().setAttribute("fullLog", new String(buffer.getInputStream().readAllBytes()));
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -106,8 +113,7 @@ public class UploadView extends HorizontalLayout {
                 UI.getCurrent().getSession().setAttribute("fullLog", log);
 
 
-            }
-            catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 e.printStackTrace();
                 Notification.show("You have to upload a Log before it can be anonymized.");
             }
@@ -131,8 +137,7 @@ public class UploadView extends HorizontalLayout {
 
                 UI.getCurrent().getPage().open(String.valueOf(registration.getResourceUri()), "_blank");
 
-            }
-            catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 e.printStackTrace();
                 Notification.show("You have to upload a Log before it can be downloaded.");
             }

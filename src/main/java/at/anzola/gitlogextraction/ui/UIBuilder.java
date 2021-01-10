@@ -8,7 +8,13 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import javafx.scene.control.*;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
@@ -106,8 +112,7 @@ public class UIBuilder {
         openItem.setOnAction(actionEvent -> {
             try {
                 (new App()).open();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -115,8 +120,7 @@ public class UIBuilder {
             if (anonymizeItemToggle.isSelected()) {
                 try {
                     LogWriter.save();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     Views.info("Sorry, something went wrong. \n Please try again or issue a bug.");
                     e.printStackTrace();
                 }
@@ -128,8 +132,7 @@ public class UIBuilder {
             if (anonymizeItemToggle.isSelected()) {
                 try {
                     LogWriter.saveAs(Views.fileSave());
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     Views.info("Sorry, something went wrong. \n Please try again or issue a bug.");
                     e.printStackTrace();
                 }

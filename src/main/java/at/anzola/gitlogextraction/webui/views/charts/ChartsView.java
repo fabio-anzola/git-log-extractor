@@ -6,7 +6,12 @@ import at.anzola.gitlogextraction.utlis.Diagrams;
 import at.anzola.gitlogextraction.webui.views.main.MainView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.charts.Chart;
-import com.vaadin.flow.component.charts.model.*;
+import com.vaadin.flow.component.charts.model.ChartType;
+import com.vaadin.flow.component.charts.model.Configuration;
+import com.vaadin.flow.component.charts.model.ListSeries;
+import com.vaadin.flow.component.charts.model.Tooltip;
+import com.vaadin.flow.component.charts.model.XAxis;
+import com.vaadin.flow.component.charts.model.YAxis;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
@@ -38,8 +43,7 @@ public class ChartsView extends Div {
         try {
             log = (Log) UI.getCurrent().getSession().getAttribute("latestLog");
             createLayout();
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             Notification.show("You have to upload a Log before it can be displayed here.");
         }
     }

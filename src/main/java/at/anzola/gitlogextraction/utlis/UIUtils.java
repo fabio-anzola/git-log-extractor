@@ -18,9 +18,21 @@ public class UIUtils {
      * Sorting options
      */
     public enum Lvsort {
+        /**
+         * Sorting by Hash
+         */
         hash,
+        /**
+         * Sorting by Author
+         */
         author,
+        /**
+         * Sorting by Date
+         */
         date,
+        /**
+         * Sorting by Message
+         */
         message
     }
 

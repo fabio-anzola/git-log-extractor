@@ -13,7 +13,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Image;
+import java.awt.Taskbar;
 import java.io.File;
 import java.io.IOException;
 
@@ -64,6 +65,11 @@ public class App extends Application {
      */
     public static ObservableList<String> listvItems;
 
+    /**
+     * "This is a main method. It doesn't need JavaDoc." -Platon
+     *
+     * @param args args
+     */
     public static void main(String[] args) {
         if (Taskbar.isTaskbarSupported()) {
             if (Taskbar.getTaskbar().isSupported(Taskbar.Feature.ICON_IMAGE)) {
@@ -71,8 +77,7 @@ public class App extends Application {
                     File file = new File("src/main/resources/icon.png");
                     Image image = ImageIO.read(file);
                     Taskbar.getTaskbar().setIconImage(image);
-                }
-                catch (IOException ex) {
+                } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -117,8 +122,7 @@ public class App extends Application {
             menuItem.setOnAction(actionEvent -> {
                 try {
                     loadNew(file);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     Views.info("Sorry, something went wrong. \n Please reopen the file manually or issue a bug.");
                     e.printStackTrace();
                 }

@@ -33,10 +33,10 @@ public class Commit {
     /**
      * Constructor with title and full message
      *
-     * @param hash The hash of the commit
-     * @param author The author of the commit
-     * @param authorDate The date of the commit
-     * @param title The title of the commit
+     * @param hash        The hash of the commit
+     * @param author      The author of the commit
+     * @param authorDate  The date of the commit
+     * @param title       The title of the commit
      * @param fullMessage The full message of the commit
      */
     public Commit(String hash, String author, LocalDateTime authorDate, String title, String fullMessage) {
@@ -49,10 +49,10 @@ public class Commit {
     /**
      * Constructor with title
      *
-     * @param hash The hash of the commit
-     * @param author The author of the commit
+     * @param hash       The hash of the commit
+     * @param author     The author of the commit
      * @param authorDate The date of the commit
-     * @param title The title of the commit
+     * @param title      The title of the commit
      */
     public Commit(String hash, String author, LocalDateTime authorDate, String title) {
         this.hash = hash;
