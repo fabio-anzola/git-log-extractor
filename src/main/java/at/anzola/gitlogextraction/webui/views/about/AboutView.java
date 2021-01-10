@@ -66,7 +66,8 @@ public class AboutView extends Div {
             } else {
                 return basePath + String.format(baseFilename, i);
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -91,7 +92,8 @@ public class AboutView extends Div {
                 } else {
                     return returnUrl;
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }

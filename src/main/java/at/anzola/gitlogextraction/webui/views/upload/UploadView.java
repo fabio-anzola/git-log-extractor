@@ -51,7 +51,7 @@ public class UploadView extends HorizontalLayout {
                 "How to",
                 new OrderedList(
                         new ListItem("Execute the following command in your bash: git log > log.txt"),
-                        new ListItem("Upload the log.txt file by clicking on 'Upload File' are via drag&drop"),
+                        new ListItem("Upload the log.txt file by clicking on 'Upload File' or via drag&drop"),
                         new ListItem("(optional) Anonymize the log file via a simple click on 'Anonymize!'"),
                         new ListItem("Now you can easily examine you log either in the 'List' tab or in the 'Charts' tab")
                 ));
@@ -81,7 +81,8 @@ public class UploadView extends HorizontalLayout {
             try {
                 UI.getCurrent().getSession().setAttribute("latestLog", LogReader.read(buffer.getInputStream().readAllBytes()));
                 UI.getCurrent().getSession().setAttribute("fullLog", new String(buffer.getInputStream().readAllBytes()));
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -105,7 +106,8 @@ public class UploadView extends HorizontalLayout {
                 UI.getCurrent().getSession().setAttribute("fullLog", log);
 
 
-            } catch (NullPointerException e) {
+            }
+            catch (NullPointerException e) {
                 e.printStackTrace();
                 Notification.show("You have to upload a Log before it can be anonymized.");
             }
@@ -116,10 +118,12 @@ public class UploadView extends HorizontalLayout {
             try {
                 final String log = (String) UI.getCurrent().getSession().getAttribute("fullLog");
 
-                if (null == log) throw new NullPointerException("Thrown bc log is null");
+                if (null == log) {
+                    throw new NullPointerException("Thrown bc log is null");
+                }
 
                 final StreamResource streamResource = new StreamResource(String.format("log%s.txt", UI.getCurrent().getSession().getPushId()),
-                        () -> new ByteArrayInputStream(log.getBytes(StandardCharsets.UTF_8)));
+                    () -> new ByteArrayInputStream(log.getBytes(StandardCharsets.UTF_8)));
                 streamResource.setContentType("application/x-unknown"); //Help what am I doing here; Not a nice solution for download!
                 streamResource.setCacheTime(0);
 
@@ -127,7 +131,8 @@ public class UploadView extends HorizontalLayout {
 
                 UI.getCurrent().getPage().open(String.valueOf(registration.getResourceUri()), "_blank");
 
-            } catch (NullPointerException e) {
+            }
+            catch (NullPointerException e) {
                 e.printStackTrace();
                 Notification.show("You have to upload a Log before it can be downloaded.");
             }

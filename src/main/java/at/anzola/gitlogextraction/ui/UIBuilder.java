@@ -106,7 +106,8 @@ public class UIBuilder {
         openItem.setOnAction(actionEvent -> {
             try {
                 (new App()).open();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -114,7 +115,8 @@ public class UIBuilder {
             if (anonymizeItemToggle.isSelected()) {
                 try {
                     LogWriter.save();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     Views.info("Sorry, something went wrong. \n Please try again or issue a bug.");
                     e.printStackTrace();
                 }
@@ -126,7 +128,8 @@ public class UIBuilder {
             if (anonymizeItemToggle.isSelected()) {
                 try {
                     LogWriter.saveAs(Views.fileSave());
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     Views.info("Sorry, something went wrong. \n Please try again or issue a bug.");
                     e.printStackTrace();
                 }
@@ -138,16 +141,16 @@ public class UIBuilder {
             Views.criticalDecision("Attention!\nThis is a one way action.\nAfter anonymizing there is no way\nto recover the data.");
         });
         sortMenuAuthor.setOnAction(actionEvent -> {
-            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.lvsort.author);
+            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.Lvsort.author);
         });
         sortMenuHash.setOnAction(actionEvent -> {
-            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.lvsort.hash);
+            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.Lvsort.hash);
         });
         sortMenuDate.setOnAction(actionEvent -> {
-            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.lvsort.date);
+            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.Lvsort.date);
         });
         sortMenuMessage.setOnAction(actionEvent -> {
-            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.lvsort.message);
+            App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.Lvsort.message);
         });
         aboutItem.setOnAction(actionEvent -> {
             (new App()).getHostServices().showDocument("https://github.com/fabio-anzola/git-log-extractor");

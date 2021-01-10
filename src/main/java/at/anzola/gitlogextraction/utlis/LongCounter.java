@@ -2,11 +2,11 @@ package at.anzola.gitlogextraction.utlis;
 
 import java.util.*;
 
-
 /**
  * The LongCounter class
  *
  * @author fabioanzola
+ * @param <K> An Object
  */
 public class LongCounter<K> extends HashMap<K, Long> {
     /**

@@ -7,6 +7,8 @@ import org.vaadin.artur.helpers.LaunchUtil;
 
 /**
  * The entry point of the Spring Boot application.
+ *
+ * @author fabioanzola
  */
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {

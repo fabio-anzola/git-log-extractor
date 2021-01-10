@@ -32,7 +32,8 @@ public class Anonym {
             MessageDigest messageDigest = null;
             try {
                 messageDigest = MessageDigest.getInstance("SHA-256");
-            } catch (NoSuchAlgorithmException e) {
+            }
+            catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
             messageDigest.update(commit.author.getBytes());

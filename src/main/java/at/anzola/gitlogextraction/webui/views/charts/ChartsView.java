@@ -38,7 +38,8 @@ public class ChartsView extends Div {
         try {
             log = (Log) UI.getCurrent().getSession().getAttribute("latestLog");
             createLayout();
-        } catch (NullPointerException e) {
+        }
+        catch (NullPointerException e) {
             Notification.show("You have to upload a Log before it can be displayed here.");
         }
     }
@@ -89,6 +90,8 @@ public class ChartsView extends Div {
                     series.addData(analysis.getCommitsPerYear().get(value));
                 }
                 break;
+            default:
+                break;
         }
 
         conf.addSeries(series);
@@ -120,6 +123,8 @@ public class ChartsView extends Div {
                             + value.toLowerCase().substring(1)
                     );
                 }
+                break;
+            default:
                 break;
         }
 

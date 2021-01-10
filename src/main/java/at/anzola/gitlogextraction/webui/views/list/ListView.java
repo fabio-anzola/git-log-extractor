@@ -110,7 +110,8 @@ public class ListView extends Div {
     private Collection<Commit> getCommits() {
         try {
             return ((Log) UI.getCurrent().getSession().getAttribute("latestLog")).gitLog;
-        } catch (NullPointerException e) {
+        }
+        catch (NullPointerException e) {
             Notification.show("You have to upload a Log before it can be displayed here.");
             return new ArrayList<>();
         }
@@ -169,7 +170,7 @@ public class ListView extends Div {
         idFilter.setWidth("100%");
         idFilter.setValueChangeMode(ValueChangeMode.EAGER);
         idFilter.addValueChangeListener(event -> dataProvider.addFilter(
-                commit -> StringUtils.containsIgnoreCase(commit.getHash(), idFilter.getValue())));
+            commit -> StringUtils.containsIgnoreCase(commit.getHash(), idFilter.getValue())));
         filterRow.getCell(hashColumn).setComponent(idFilter);
 
         TextField clientFilter = new TextField();

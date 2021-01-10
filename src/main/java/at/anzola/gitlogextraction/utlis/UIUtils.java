@@ -17,7 +17,7 @@ public class UIUtils {
     /**
      * Sorting options
      */
-    public enum lvsort {
+    public enum Lvsort {
         hash,
         author,
         date,
@@ -31,7 +31,7 @@ public class UIUtils {
      * @param lvsortI        The options to be sorted after
      * @return The sorted list
      */
-    public static ObservableList<String> compareLV(ObservableList<String> observableList, lvsort lvsortI) {
+    public static ObservableList<String> compareLV(ObservableList<String> observableList, Lvsort lvsortI) {
         observableList.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -59,7 +59,7 @@ public class UIUtils {
      * @param lvsort The option to be cut after
      * @return The cut string
      */
-    public static String cutToWish(String string, lvsort lvsort) {
+    public static String cutToWish(String string, Lvsort lvsort) {
         switch (lvsort) {
             case hash:
                 return string.split("\n")[0].trim();

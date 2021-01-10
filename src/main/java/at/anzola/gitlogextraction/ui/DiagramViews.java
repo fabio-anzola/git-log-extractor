@@ -26,10 +26,10 @@ public class DiagramViews {
      * Contains the titles for the different Charts
      */
     private static Map<Diagrams, String> titles = new HashMap<Diagrams, String>() {{
-        put(Diagrams.year, "Commits per Year");
-        put(Diagrams.month, "Commits per Month");
-        put(Diagrams.day, "Commits per Day");
-    }};
+            put(Diagrams.year, "Commits per Year");
+            put(Diagrams.month, "Commits per Month");
+            put(Diagrams.day, "Commits per Day");
+        }};
 
     /**
      * Contains the Data Series
@@ -63,6 +63,8 @@ public class DiagramViews {
                 break;
             case year:
                 chartPerYear();
+                break;
+            default:
                 break;
         }
 

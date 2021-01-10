@@ -71,7 +71,8 @@ public class App extends Application {
                     File file = new File("src/main/resources/icon.png");
                     Image image = ImageIO.read(file);
                     Taskbar.getTaskbar().setIconImage(image);
-                } catch (IOException ex) {
+                }
+                catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -116,7 +117,8 @@ public class App extends Application {
             menuItem.setOnAction(actionEvent -> {
                 try {
                     loadNew(file);
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     Views.info("Sorry, something went wrong. \n Please reopen the file manually or issue a bug.");
                     e.printStackTrace();
                 }
