@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.utlis;
 
+import at.anzola.gitlogextraction.Checkstyle.MagicNumber;
 import at.anzola.gitlogextraction.ui.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,7 +81,7 @@ public class UIUtils {
             case date:
                 return string.split("\n")[2].trim();
             case message:
-                return string.split("\n")[3].trim();
+                return string.split("\n")[MagicNumber.THREE].trim();
             default:
                 return null;
         }

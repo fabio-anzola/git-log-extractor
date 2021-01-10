@@ -1,5 +1,7 @@
 package at.anzola.gitlogextraction.utlis;
 
+import at.anzola.gitlogextraction.Checkstyle.MagicNumber;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -27,17 +29,17 @@ public class CommitDate {
      */
     public static LocalDateTime of(String s) {
         String[] split = s.split(" ");
-        String[] time = split[3].split(":");
+        String[] time = split[MagicNumber.THREE].split(":");
 
         ZonedDateTime x = ZonedDateTime.of(
-                Integer.parseInt(split[4]),
+                Integer.parseInt(split[MagicNumber.FOUR]),
                 MONTHS.indexOf(split[1]) + 1,
                 Integer.parseInt(split[2]),
                 Integer.parseInt(time[0]),
                 Integer.parseInt(time[1]),
                 Integer.parseInt(time[2]),
                 0,
-                ZoneId.of(split[5])
+                ZoneId.of(split[MagicNumber.FIVE])
         );
 
         return LocalDateTime.ofInstant(x.toInstant(), ZoneOffset.UTC);

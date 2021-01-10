@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.ui;
 
+import at.anzola.gitlogextraction.Checkstyle.MagicNumber;
 import at.anzola.gitlogextraction.utlis.Diagrams;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -71,7 +72,7 @@ public class DiagramViews {
         series.setName(titles.get(diagramsI));
         barchart.getData().add(series);
 
-        Scene dialogScene = new Scene(barchart, 500, 500);
+        Scene dialogScene = new Scene(barchart, MagicNumber.FIVE_HUNDRED, MagicNumber.FIVE_HUNDRED);
         if (App.scene.getStylesheets().size() > 0) {
             dialogScene.getStylesheets().add(new File("src/main/resources/javafx/frontend/dark_style.css").toURI().toString());
         }

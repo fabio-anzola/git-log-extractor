@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.webui.views.upload;
 
+import at.anzola.gitlogextraction.Checkstyle.MagicNumber;
 import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
 import at.anzola.gitlogextraction.utlis.Anonym;
@@ -76,7 +77,7 @@ public class UploadView extends HorizontalLayout {
         upload.setMaxFiles(1);
         upload.setDropLabel(new Label("Upload a 1 MiB (max) file in .txt (plaintext) format"));
         upload.setAcceptedFileTypes("text/plain");
-        upload.setMaxFileSize(1048576);
+        upload.setMaxFileSize(MagicNumber.MIB);
         Div output = new Div();
 
         upload.addFileRejectedListener(event -> {

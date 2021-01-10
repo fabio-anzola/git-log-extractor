@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.reader;
 
+import at.anzola.gitlogextraction.Checkstyle.MagicNumber;
 import at.anzola.gitlogextraction.response.Commit;
 import at.anzola.gitlogextraction.response.Log;
 import at.anzola.gitlogextraction.utlis.CommitDate;
@@ -70,9 +71,9 @@ public class LogReader {
                 if (line.matches(REGEX_COMMIT)) {
                     hash = line.split(" ")[1].trim();
                 } else if (line.matches(REGEX_AUTHOR)) {
-                    author = line.substring(7).trim();
+                    author = line.substring(MagicNumber.SEVEN).trim();
                 } else if (line.matches(REGEX_DATE)) {
-                    authorDate = CommitDate.of(line.substring(7).trim());
+                    authorDate = CommitDate.of(line.substring(MagicNumber.SEVEN).trim());
                 } else {
                     if (!line.equals("")) {
                         if (!message.equals("")) {
@@ -117,9 +118,9 @@ public class LogReader {
             if (line.matches(REGEX_COMMIT)) {
                 hash = line.split(" ")[1].trim();
             } else if (line.matches(REGEX_AUTHOR)) {
-                author = line.substring(7).trim();
+                author = line.substring(MagicNumber.SEVEN).trim();
             } else if (line.matches(REGEX_DATE)) {
-                authorDate = CommitDate.of(line.substring(7).trim());
+                authorDate = CommitDate.of(line.substring(MagicNumber.SEVEN).trim());
             } else {
                 if (!line.equals("")) {
                     if (!message.equals("")) {

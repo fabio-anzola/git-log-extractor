@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.ui;
 
+import at.anzola.gitlogextraction.Checkstyle.MagicNumber;
 import at.anzola.gitlogextraction.utlis.Anonym;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -34,7 +35,7 @@ public class Views {
         errorDisplay.setTextAlignment(TextAlignment.CENTER);
         VBox screen = new VBox(errorDisplay, exit);
         screen.setAlignment(Pos.CENTER);
-        Scene dialogScene = new Scene(screen, 250, 100);
+        Scene dialogScene = new Scene(screen, MagicNumber.TWO_HUNDRED_FIFTY, MagicNumber.ONE_HUNDRED);
         dialog.setScene(dialogScene);
         dialog.show();
         exit.setOnAction(exitEvent -> dialog.close());
@@ -54,11 +55,11 @@ public class Views {
         Button ok = new Button("Ok");
         HBox hBox = new HBox(exit, ok);
         hBox.setAlignment(Pos.CENTER);
-        hBox.setSpacing(10);
+        hBox.setSpacing(MagicNumber.TEN);
         errorDisplay.setTextAlignment(TextAlignment.CENTER);
         VBox screen = new VBox(errorDisplay, hBox);
         screen.setAlignment(Pos.CENTER);
-        Scene dialogScene = new Scene(screen, 250, 100);
+        Scene dialogScene = new Scene(screen, MagicNumber.TWO_HUNDRED_FIFTY, MagicNumber.ONE_HUNDRED);
         dialog.setScene(dialogScene);
         dialog.show();
         exit.setCancelButton(true);

@@ -1,5 +1,6 @@
 package at.anzola.gitlogextraction.ui;
 
+import at.anzola.gitlogextraction.Checkstyle.MagicNumber;
 import at.anzola.gitlogextraction.reader.LogReader;
 import at.anzola.gitlogextraction.response.Log;
 import at.anzola.gitlogextraction.utlis.Analysis;
@@ -99,7 +100,7 @@ public class App extends Application {
         stage.getIcons().add(new javafx.scene.image.Image("file:src/main/resources/icon.png"));
 
         //Set scene
-        scene = new Scene(vbox, 800, 500);
+        scene = new Scene(vbox, MagicNumber.EIGHT_HUNDRED, MagicNumber.FIVE_HUNDRED);
 
         //Show UI
         stage.setTitle("Git Log Extraction App");
