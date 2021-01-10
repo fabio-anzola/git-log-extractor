@@ -124,7 +124,8 @@ public class App extends Application {
                 try {
                     loadNew(file);
                 } catch (IOException e) {
-                    Views.info("Sorry, something went wrong. \n Please reopen the file manually or issue a bug.");
+                    Views.info("Sorry, something went wrong. "
+                            + "\n Please reopen the file manually or issue a bug.");
                     e.printStackTrace();
                 }
             });

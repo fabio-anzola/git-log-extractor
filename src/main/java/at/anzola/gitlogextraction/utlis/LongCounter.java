@@ -187,7 +187,7 @@ public class LongCounter<K> extends HashMap<K, Long> {
      * Löscht alle Einträge aus der Map, deren Counter == 0 ist.
      */
     public void clearZeros() {
-        // Wichtig: man kann einer Schleife keine Elemente löschen -- verwende eine Schleife mit einem Iterator
+        // Can't use loop; use Iterator
         entrySet().removeIf(kLongEntry -> kLongEntry.getValue() == 0);
     }
 }

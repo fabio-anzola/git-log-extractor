@@ -43,7 +43,9 @@ public class AboutView extends Div {
      */
     private void createView() {
         String url = latestDocs(1);
-        String outerHtml = "<embed src=\"" + url + "\" type=\"application/pdf\" width=\"100%\" height=\"100%\"/>";
+        String outerHtml = "<embed src=\""
+                + url
+                + "\" type=\"application/pdf\" width=\"100%\" height=\"100%\"/>";
         Html html = new Html(outerHtml);
         add(html);
     }

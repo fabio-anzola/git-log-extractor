@@ -71,7 +71,8 @@ public class ChartsView extends Div {
                 diagrams.name().toUpperCase().charAt(0)
                         + diagrams.name().toLowerCase().substring(1))
         );
-        conf.setSubTitle(String.format("An absolute graph of all commits made, grouped by their %s", diagrams.name().toLowerCase()));
+        conf.setSubTitle(String.format("An absolute graph of all commits made, grouped by their %s",
+                diagrams.name().toLowerCase()));
 
         ListSeries series = new ListSeries("Commits");
 
@@ -132,7 +133,9 @@ public class ChartsView extends Div {
                 break;
         }
 
-        xaxis.setTitle(diagrams.name().toUpperCase().charAt(0) + diagrams.name().toLowerCase().substring(1) + 's');
+        xaxis.setTitle(diagrams.name().toUpperCase().charAt(0)
+                + diagrams.name().toLowerCase().substring(1)
+                + 's');
         conf.addxAxis(xaxis);
 
         YAxis yaxis = new YAxis();

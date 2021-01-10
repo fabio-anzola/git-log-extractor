@@ -59,10 +59,18 @@ public class UploadView extends HorizontalLayout {
         Details component = new Details(
                 "How to",
                 new OrderedList(
-                        new ListItem("Execute the following command in your bash: git log > log.txt"),
-                        new ListItem("Upload the log.txt file by clicking on 'Upload File' or via drag&drop"),
-                        new ListItem("(optional) Anonymize the log file via a simple click on 'Anonymize!'"),
-                        new ListItem("Now you can easily examine you log either in the 'List' tab or in the 'Charts' tab")
+                        new ListItem(
+                   "Execute the following command in your bash: git log > log.txt"
+                        ),
+                        new ListItem(
+                   "Upload the log.txt file by clicking on 'Upload File' or via drag&drop"
+                        ),
+                        new ListItem(
+                   "(optional) Anonymize the log file via a simple click on 'Anonymize!'"
+                        ),
+                        new ListItem(
+                   "Now simply examine you log either in the 'List' tab or in the 'Charts' tab"
+                        )
                 ));
 
         add(component);
@@ -88,8 +96,12 @@ public class UploadView extends HorizontalLayout {
         upload.addSucceededListener(succeededEvent -> {
             Notification.show("Upload successful!");
             try {
-                UI.getCurrent().getSession().setAttribute("latestLog", LogReader.read(buffer.getInputStream().readAllBytes()));
-                UI.getCurrent().getSession().setAttribute("fullLog", new String(buffer.getInputStream().readAllBytes()));
+                UI.getCurrent().getSession().setAttribute(
+                        "latestLog", LogReader.read(buffer.getInputStream().readAllBytes())
+                );
+                UI.getCurrent().getSession().setAttribute(
+                        "fullLog", new String(buffer.getInputStream().readAllBytes())
+                );
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -101,7 +113,9 @@ public class UploadView extends HorizontalLayout {
                 //Anonymize Log to Display and work with
                 UI.getCurrent().getSession().setAttribute(
                         "latestLog",
-                        Anonym.anonymize(((Log) UI.getCurrent().getSession().getAttribute("latestLog")))
+                        Anonym.anonymize(
+                                ((Log) UI.getCurrent().getSession().getAttribute("latestLog")
+                                ))
                 );
 
                 //Anonymize Full Log to be downloaded
@@ -129,14 +143,20 @@ public class UploadView extends HorizontalLayout {
                     throw new NullPointerException("Thrown bc log is null");
                 }
 
-                final StreamResource streamResource = new StreamResource(String.format("log%s.txt", UI.getCurrent().getSession().getPushId()),
+                final StreamResource streamResource = new StreamResource(String.format("log%s.txt",
+                        UI.getCurrent().getSession().getPushId()),
                     () -> new ByteArrayInputStream(log.getBytes(StandardCharsets.UTF_8)));
-                streamResource.setContentType("application/x-unknown"); //Help what am I doing here; Not a nice solution for download!
+                streamResource.setContentType("application/x-unknown");
                 streamResource.setCacheTime(0);
 
-                final StreamRegistration registration = UI.getCurrent().getSession().getResourceRegistry().registerResource(streamResource);
+                final StreamRegistration registration = UI.getCurrent()
+                        .getSession()
+                        .getResourceRegistry()
+                        .registerResource(streamResource);
 
-                UI.getCurrent().getPage().open(String.valueOf(registration.getResourceUri()), "_blank");
+                UI.getCurrent().getPage().open(
+                        String.valueOf(registration.getResourceUri()), "_blank"
+                );
 
             } catch (NullPointerException e) {
                 e.printStackTrace();

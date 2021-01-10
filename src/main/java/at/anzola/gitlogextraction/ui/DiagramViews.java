@@ -74,7 +74,9 @@ public class DiagramViews {
 
         Scene dialogScene = new Scene(barchart, MagicNumber.FIVE_HUNDRED, MagicNumber.FIVE_HUNDRED);
         if (App.scene.getStylesheets().size() > 0) {
-            dialogScene.getStylesheets().add(new File("src/main/resources/javafx/frontend/dark_style.css").toURI().toString());
+            dialogScene.getStylesheets().add(new File(
+                    "src/main/resources/javafx/frontend/dark_style.css"
+            ).toURI().toString());
         }
         dialog.setScene(dialogScene);
         dialog.show();
@@ -86,7 +88,8 @@ public class DiagramViews {
     private static void chartPerDay() {
         for (DayOfWeek value : DayOfWeek.values()) {
             if (App.analysis.getCommitsPerDay().containsKey(value)) {
-                series.getData().add(new XYChart.Data<>(value.name(), App.analysis.getCommitsPerDay().get(value)));
+                series.getData().add(new XYChart.Data<>(value.name(),
+                        App.analysis.getCommitsPerDay().get(value)));
             } else {
                 series.getData().add(new XYChart.Data<>(value.name(), 0));
             }
@@ -99,7 +102,8 @@ public class DiagramViews {
     private static void chartPerMonth() {
         for (Month value : Month.values()) {
             if (App.analysis.getCommitsPerMonth().containsKey(value)) {
-                series.getData().add(new XYChart.Data<>(value.name(), App.analysis.getCommitsPerMonth().get(value)));
+                series.getData().add(new XYChart.Data<>(value.name(),
+                        App.analysis.getCommitsPerMonth().get(value)));
             } else {
                 series.getData().add(new XYChart.Data<>(value.name(), 0));
             }
@@ -113,7 +117,8 @@ public class DiagramViews {
         for (Object o : App.analysis.getCommitsPerYear().keySet().stream().sorted().toArray()) {
             String value = String.valueOf((String) o);
             if (App.analysis.getCommitsPerYear().containsKey(value)) {
-                series.getData().add(new XYChart.Data<>(value, App.analysis.getCommitsPerYear().get(value)));
+                series.getData().add(new XYChart.Data<>(value,
+                        App.analysis.getCommitsPerYear().get(value)));
             } else {
                 series.getData().add(new XYChart.Data<>(value, 0));
             }

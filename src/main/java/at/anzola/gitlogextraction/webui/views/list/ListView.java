@@ -130,14 +130,16 @@ public class ListView extends Div {
      * Creates the Grid-Column for the Hash
      */
     private void createHashColumn() {
-        hashColumn = grid.addColumn(Commit::getHash, "hash").setHeader("Hash").setAutoWidth(true);
+        hashColumn = grid.addColumn(Commit::getHash, "hash")
+                .setHeader("Hash").setAutoWidth(true);
     }
 
     /**
      * Creates the Grid-Column for the Author
      */
     private void createAuthorColumn() {
-        authorColumn = grid.addColumn(Commit::getAuthor, "author").setHeader("Author").setAutoWidth(true);
+        authorColumn = grid.addColumn(Commit::getAuthor, "author")
+                .setHeader("Author").setAutoWidth(true);
     }
 
     /**
@@ -147,14 +149,16 @@ public class ListView extends Div {
         authorDateColumn = grid
                 .addColumn(new LocalDateRenderer<>(commit -> commit.getAuthorDate().toLocalDate(),
                         DateTimeFormatter.ofPattern("M/d/yyyy")))
-                .setComparator(commit -> commit.getAuthorDate().toLocalDate()).setHeader("Date").setAutoWidth(true);
+                .setComparator(commit -> commit.getAuthorDate().toLocalDate())
+                .setHeader("Date").setAutoWidth(true);
     }
 
     /**
      * Creates the Grid-Column for the Message
      */
     private void createMessageColumn() {
-        messageColumn = grid.addColumn(Commit::getMessage, "message").setHeader("Message").setAutoWidth(true);
+        messageColumn = grid.addColumn(Commit::getMessage, "message")
+                .setHeader("Message").setAutoWidth(true);
     }
 
     /**
@@ -178,7 +182,9 @@ public class ListView extends Div {
         clientFilter.setWidth("100%");
         clientFilter.setValueChangeMode(ValueChangeMode.EAGER);
         clientFilter.addValueChangeListener(event -> dataProvider
-                .addFilter(commit -> StringUtils.containsIgnoreCase(commit.getAuthor(), clientFilter.getValue())));
+                .addFilter(commit -> StringUtils.containsIgnoreCase(
+                        commit.getAuthor(), clientFilter.getValue()
+                )));
         filterRow.getCell(authorColumn).setComponent(clientFilter);
 
         TextField amountFilter = new TextField();
@@ -194,7 +200,8 @@ public class ListView extends Div {
         dateFilter.setPlaceholder("Filter");
         dateFilter.setClearButtonVisible(true);
         dateFilter.setWidth("100%");
-        dateFilter.addValueChangeListener(event -> dataProvider.addFilter(commit -> areDatesEqual(commit, dateFilter)));
+        dateFilter.addValueChangeListener(event -> dataProvider
+                .addFilter(commit -> areDatesEqual(commit, dateFilter)));
         filterRow.getCell(authorDateColumn).setComponent(dateFilter);
     }
 

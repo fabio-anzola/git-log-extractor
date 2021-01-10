@@ -141,7 +141,8 @@ public class UIBuilder {
             }
         });
         anonymizeItemToggle.setOnAction(actionEvent -> {
-            Views.criticalDecision("Attention!\nThis is a one way action.\nAfter anonymizing there is no way\nto recover the data.");
+            Views.criticalDecision("Attention!\nThis is a one way action."
+                    + "\nAfter anonymizing there is no way\nto recover the data.");
         });
         sortMenuAuthor.setOnAction(actionEvent -> {
             App.listvItems = UIUtils.compareLV(App.listvItems, UIUtils.Lvsort.author);
@@ -211,7 +212,10 @@ public class UIBuilder {
         ArrayList<String> commits = new ArrayList<>();
         for (Commit commit : App.log.gitLog) {
             commits.add(String.format("Hash: %s \nAuthor: %s \nDate: %s \nMessage: %s",
-                    commit.hash, commit.author, commit.authorDate.atZone(ZoneId.systemDefault()), commit.message));
+                    commit.hash,
+                    commit.author,
+                    commit.authorDate.atZone(ZoneId.systemDefault()),
+                    commit.message));
         }
         App.listvItems = FXCollections.observableList(commits);
         sortMenuDate.fire();
@@ -228,7 +232,9 @@ public class UIBuilder {
         if (isDark) {
             App.scene.getStylesheets().remove(0);
         } else {
-            App.scene.getStylesheets().add(new File("src/main/resources/javafx/frontend/dark_style.css").toURI().toString());
+            App.scene.getStylesheets().add(new File(
+                    "src/main/resources/javafx/frontend/dark_style.css"
+            ).toURI().toString());
         }
         App.stage.show();
     }

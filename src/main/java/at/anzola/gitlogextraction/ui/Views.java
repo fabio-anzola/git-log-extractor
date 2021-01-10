@@ -35,7 +35,9 @@ public class Views {
         errorDisplay.setTextAlignment(TextAlignment.CENTER);
         VBox screen = new VBox(errorDisplay, exit);
         screen.setAlignment(Pos.CENTER);
-        Scene dialogScene = new Scene(screen, MagicNumber.TWO_HUNDRED_FIFTY, MagicNumber.ONE_HUNDRED);
+        Scene dialogScene = new Scene(
+                screen, MagicNumber.TWO_HUNDRED_FIFTY, MagicNumber.ONE_HUNDRED
+        );
         dialog.setScene(dialogScene);
         dialog.show();
         exit.setOnAction(exitEvent -> dialog.close());
@@ -59,7 +61,9 @@ public class Views {
         errorDisplay.setTextAlignment(TextAlignment.CENTER);
         VBox screen = new VBox(errorDisplay, hBox);
         screen.setAlignment(Pos.CENTER);
-        Scene dialogScene = new Scene(screen, MagicNumber.TWO_HUNDRED_FIFTY, MagicNumber.ONE_HUNDRED);
+        Scene dialogScene = new Scene(
+                screen, MagicNumber.TWO_HUNDRED_FIFTY, MagicNumber.ONE_HUNDRED
+        );
         dialog.setScene(dialogScene);
         dialog.show();
         exit.setCancelButton(true);

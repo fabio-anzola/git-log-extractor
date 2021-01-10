@@ -39,7 +39,9 @@ public class Commit {
      * @param title       The title of the commit
      * @param fullMessage The full message of the commit
      */
-    public Commit(String hash, String author, LocalDateTime authorDate, String title, String fullMessage) {
+    public Commit(
+            String hash, String author, LocalDateTime authorDate, String title, String fullMessage
+    ) {
         this.hash = hash;
         this.author = author;
         this.authorDate = authorDate;

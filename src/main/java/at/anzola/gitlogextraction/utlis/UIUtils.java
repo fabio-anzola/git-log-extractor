@@ -44,7 +44,9 @@ public class UIUtils {
      * @param lvsortI        The options to be sorted after
      * @return The sorted list
      */
-    public static ObservableList<String> compareLV(ObservableList<String> observableList, Lvsort lvsortI) {
+    public static ObservableList<String> compareLV(
+            ObservableList<String> observableList, Lvsort lvsortI
+    ) {
         observableList.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {

@@ -20,8 +20,19 @@ public class CommitDate {
      * A list of abbreviations of months
      */
     private final static List<String> MONTHS = Arrays.asList(
-            new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
-                    .clone());
+            new String[]{"Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            }.clone());
 
     /**
      * @param s The Date from the logfile

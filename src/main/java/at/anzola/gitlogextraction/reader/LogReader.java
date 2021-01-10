@@ -32,7 +32,8 @@ public class LogReader {
     /**
      * Regex for the Date line
      */
-    private final static String REGEX_DATE = "^(Date:[\\s]{3}[A-Za-z]{3}\\s[A-Za-z]{3}\\s[0-9]{1,2}\\s[0-9:]{8}\\s[0-9]{4}\\s[0-9+]{5})";
+    private final static String REGEX_DATE = "^(Date:"
+            + "[\\s]{3}[A-Za-z]{3}\\s[A-Za-z]{3}\\s[0-9]{1,2}\\s[0-9:]{8}\\s[0-9]{4}\\s[0-9+]{5})";
 
     /**
      * Reads the log and outputs the object
